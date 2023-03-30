@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
 	<title>Acuarius - Control de consumo de agua</title>
+	<meta charset="utf-8">
 </head>
 <body>
-	<h1>Acuarius</h1>
-	<p>Acuarius es una aplicación para llevar el control del consumo de agua de los usuarios del acueducto rural. Esta aplicación permite a los usuarios ingresar sus lecturas de consumo de agua y generar informes de consumo para su seguimiento.</p>
+	<h1>Acuarius - Control de consumo de agua</h1>
+	<p>Acuarius es una aplicación web hecha en Laravel que permite llevar el control del consumo de agua de los usuarios del acueducto rural.</p>
+
 	<h2>Funcionalidades</h2>
 	<ul>
-		<li>Registro de usuarios y propiedades</li>
-		<li>Ingreso de lecturas de consumo de agua</li>
-		<li>Generación de informes de consumo</li>
-		<li>Notificaciones de facturación y vencimientos</li>
+		<li>Registro de usuarios</li>
+		<li>Registro de medidores de agua</li>
+		<li>Registro de lecturas de consumo</li>
+		<li>Generación de reportes de consumo</li>
+		<li>Envío de notificaciones por correo electrónico</li>
 	</ul>
-	<h2>Requerimientos</h2>
+
+	<h2>Tecnologías utilizadas</h2>
 	<ul>
-		<li>PHP 7+</li>
-		<li>MySQL 5.7+</li>
-		<li>Bootstrap 4+</li>
+		<li>Laravel</li>
+		<li>MySQL</li>
+		<li>Bootstrap</li>
 	</ul>
+
 	<h2>Instalación</h2>
-	<p>Para instalar Acuarius, sigue estos pasos:</p>
+	<p>Para instalar la aplicación, sigue los siguientes pasos:</p>
 	<ol>
-		<li>Clona o descarga el repositorio en tu servidor web.</li>
-		<li>Configura la conexión a la base de datos en el archivo <code>config.php</code>.</li>
-		<li>Importa la base de datos desde el archivo <code>database.sql</code>.</li>
-		<li>Abre la aplicación en tu navegador web y comienza a usarla.</li>
+		<li>Clona el repositorio de Github: <code>git clone https://github.com/tu_usuario/acuarius.git</code></li>
+		<li>Instala las dependencias de Laravel: <code>composer install</code></li>
+		<li>Copia el archivo de configuración de ejemplo: <code>cp .env.example .env</code></li>
+		<li>Configura las variables de entorno en el archivo .env</li>
+		<li>Genera la clave de aplicación: <code>php artisan key:generate</code></li>
+		<li>Ejecuta las migraciones: <code>php artisan migrate</code></li>
+		<li>Inicia el servidor web: <code>php artisan serve</code></li>
+		<li>Abre la aplicación en tu navegador: <code>http://localhost:8000</code></li>
 	</ol>
+
+	<h2>Contribuir</h2>
+	<p>Si deseas contribuir al desarrollo de Acuarius, por favor crea un fork del repositorio y envía tus cambios a través de un pull request.</p>
+
 	<h2>Autor</h2>
-	<p>Acuarius fue desarrollado por Juan Pérez. Si tienes alguna duda o comentario, puedes contactar al autor en el siguiente correo electrónico: juan.perez@example.com</p>
-	<h2>Licencia</h2>
-	<p>Acuarius está disponible bajo la licencia MIT.</p>
+	<p>Acuarius fue creado por Juan Pérez.</p>
 </body>
 </html>
