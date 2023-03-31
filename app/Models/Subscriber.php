@@ -14,6 +14,7 @@ class Subscriber extends Model
         'cedula',
         'apellidos',
         'nombres',
+        'matricula',
         'fecha_nacimiento',
         'email',
         'telefono',

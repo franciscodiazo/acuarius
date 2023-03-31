@@ -18,6 +18,7 @@ class CreateSuscribersTable extends Migration
             $table->string('cedula')->unique();
             $table->string('apellidos', 100);
             $table->string('nombres', 100);
+            $table->string('matricula', 100)->unique();
             $table->string('email')->unique();
             $table->date('fecha_nacimiento');
             $table->string('telefono', 20);

@@ -55,6 +55,17 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="matricula">{{ __('matricula') }}</label>
+                            <input id="matricula" type="text" class="form-control @error('matricula') is-invalid @enderror" name="matricula" value="{{ $suscriptor->matricula }}" required autocomplete="matricula">
+
+                            @error('matricula')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="fecha_nacimiento">{{ __('Fecha de Nacimiento') }}</label>
                             <input id="fecha_nacimiento" type="date" class="form-control @error('fecha_nacimiento') is-invalid @enderror" name="fecha_nacimiento" value="{{ $suscriptor->fecha_nacimiento }}" required autocomplete="fecha_nacimiento">
 

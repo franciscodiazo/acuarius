@@ -13,6 +13,7 @@
             <th>Cédula</th>
             <th>Apellidos</th>
             <th>Nombres</th>
+            <th>Matricula</th>
             <th>Nacimiento</th>
             <th>Correo</th>
             <th>Teléfono</th>
@@ -33,6 +34,7 @@
                 <td>{{ $suscriptor->cedula }}</td>
                 <td>{{ $suscriptor->apellidos }}</td>
                 <td>{{ $suscriptor->nombres }}</td>
+                <td>{{ $suscriptor->matricula }}</td>
                 <td>{{ $suscriptor->fecha_nacimiento }}</td>
                 <td>{{ $suscriptor->email }}</td>
                 <td>{{ $suscriptor->telefono }}</td>

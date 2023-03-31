@@ -27,6 +27,10 @@
     <div class="form-group">
         <label for="nombres">Nombres:</label>
         <input type="text" class="form-control" id="nombres" name="nombres" maxlength="100" required value={{old('nombres')}}>
+    </div>    
+    <div class="form-group">
+        <label for="matricula">matricula:</label>
+        <input type="text" class="form-control" id="matricula" name="matricula" maxlength="100" required value={{old('matricula')}}>
     </div>
 
     <div class="form-group">
