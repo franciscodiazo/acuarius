@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Models\Lecturas;
 
 class LecturaController extends Controller
 {
@@ -13,72 +13,80 @@ class LecturaController extends Controller
      */
     public function index()
     {
-        //
+        $lecturas = Lecturas::all();
+        return view('lecturas.index', compact('lecturas'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+ public function create()
     {
-        //
+        return view('lecturas.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'matricula' => 'required',
+            'fecha_lectura' => 'required',
+            'ciclo' => 'required',
+            'ano_actual' => 'required',
+            'lectura_actual' => 'required',
+            'lectura_anterior' => 'required'
+        ]);
+
+        $lectura = new Lecturas;
+        $lectura->matricula = $request->matricula;
+        $lectura->fecha_lectura = $request->fecha_lectura;
+        $lectura->ciclo = $request->ciclo;
+        $lectura->ano_actual = $request->ano_actual;
+        $lectura->lectura_actual = $request->lectura_actual;
+        $lectura->lectura_anterior = $request->lectura_anterior;
+        $lectura->save();
+
+        return redirect()->route('lecturas.index')->with('success', 'Lectura creada correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
+        $lectura = Lecturas::findOrFail($id);
+      
+        return view('lecturas.show', compact('lectura'));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+        $lectura = Lecturas::find($id);
+        return view('lecturas.edit', compact('lectura'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'matricula' => 'required',
+            'fecha_lectura' => 'required',
+            'ciclo' => 'required',
+            'ano_actual' => 'required',
+            'lectura_actual' => 'required',
+            'lectura_anterior' => 'required'
+        ]);
+
+        $lectura = Lecturas::find($id);
+        $lectura->matricula = $request->matricula;
+        $lectura->fecha_lectura = $request->fecha_lectura;
+        $lectura->ciclo = $request->ciclo;
+        $lectura->ano_actual = $request->ano_actual;
+        $lectura->lectura_actual = $request->lectura_actual;
+        $lectura->lectura_anterior = $request->lectura_anterior;
+        $lectura->save();
+
+        return redirect()->route('lecturas.index')->with('success', 'Lectura actualizada correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $lectura = Lecturas::find($id);
+        $lectura->delete();
+        return redirect()->route('lecturas.index')->with('success', 'Lectura eliminada correctamente');
     }
 }

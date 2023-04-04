@@ -69,6 +69,8 @@ class SuscriptorController extends Controller
     public function show($id)
     {
         //
+        $suscriptor = Subscriber::findOrFail($id);
+      
         return view('suscriptores.show', compact('suscriptor'));
 
     }

@@ -1,36 +1,37 @@
-<h1>Listado de Suscriptores</h1>
+@extends('layouts.app')
 
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif
+@section('title', 'Suscriptores')
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Cédula</th>
-            <th>Apellidos</th>
-            <th>Nombres</th>
-            <th>Matricula</th>
-            <th>Nacimiento</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
-            <th>Dirección Residencia</th>
-            <th>Vereda</th>
-            <th>Sector</th>
-            <th>Municipio</th>
-            <th>País</th>
-            <th>Coordenadas</th>
-            <th>Estado</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($suscriptores as $suscriptor)
-            <tr>
-                <td>{{ $suscriptor->id }}</td>
+@section('content')
+
+<div class="table-responsive">
+     <a class="btn btn-primary" href="{{ route('suscriptores.create') }}">Crear Usuario</a>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col"> ID</th>
+        <th scope="col">Cédula</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col">Nombres</th>
+        <th scope="col">Matricula</th>
+        <th scope="col">Nacimiento</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Dirección Residencia</th>
+        <th scope="col">Vereda</th>
+        <th scope="col">Sector</th>
+        <th scope="col">Municipio</th>
+        <th scope="col">País</th>
+        <th scope="col">Coordenadas</th>
+        <th scope="col">Estado</th>
+        <th scope="col" class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="display: none;">Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    @foreach ($suscriptores as $suscriptor)
+            <tr class="odd">
+                <th scope="row"><a href="{{ route('suscriptores.edit', $suscriptor->id) }}">{{ $suscriptor->id }}</a></th>
                 <td>{{ $suscriptor->cedula }}</td>
                 <td>{{ $suscriptor->apellidos }}</td>
                 <td>{{ $suscriptor->nombres }}</td>
@@ -48,17 +49,18 @@
                 <td>
                    
                     <form action="{{ route('suscriptores.destroy', $suscriptor->id) }}" method="POST">
-                        <a class="btn btn-primary" href="{{ route('suscriptores.edit', $suscriptor->id) }}">Editar</a>
+                        <a class="btn btn-primary" href="{{ route('suscriptores.edit', $suscriptor->id) }}">Editar</a></td><td>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>
             </tr>
-        @endforeach
-    </tbody>
-</table>
 
-<div class="mt-3">
-    <a class="btn btn-success" href="{{ route('suscriptores.create') }}">Crear nuevo Suscriptor</a>
+        @endforeach    
+  </tbody>
+</table>
 </div>
+
+@endsection
+

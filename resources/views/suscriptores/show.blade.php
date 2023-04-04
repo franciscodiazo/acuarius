@@ -1,5 +1,24 @@
-<h1>Detalles del suscriptor</h1>
+@extends('layouts.app')
 
-<p><strong>Cédula:</strong> {{ $suscriptor->cedula }}</p>
-<p><strong>Apellidos:</strong> {{ $suscriptor->apellidos }}</p>
-<p><strong>Nombres:</strong> {{ $suscriptor->nombres }}</p>
+@section('title', 'suscriptor')
+
+
+@section('content')  
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">{{ $suscriptor->matricula }}
+
+        </div>	
+    </div>
+</div>
+@endsection

@@ -1,4 +1,6 @@
-<h1>Crear nuevo Suscriptor</h1>
+@extends('layouts.app')
+
+@section('title', 'Suscriptor')
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -9,7 +11,16 @@
         </ul>
     </div>
 @endif
-    
+ 
+@section('content') 
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Editar Suscriptor') }}</div>
+
+                <div class="card-body">
+
 <form action="{{ route('suscriptores.store') }}" method="POST">
     @csrf
     {{csrf_field()}}
@@ -88,5 +99,6 @@
 
     <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
+@endsection
 
 

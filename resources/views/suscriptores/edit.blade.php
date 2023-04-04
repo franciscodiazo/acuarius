@@ -1,5 +1,8 @@
-<h1>Editar Suscriptor</h1>
+@extends('layouts.app')
 
+@section('title', 'Suscriptor')
+
+@section('content')  
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -9,7 +12,6 @@
         </ul>
     </div>
 @endif
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -171,3 +173,4 @@
 
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
+@endsection

@@ -13,11 +13,11 @@ use App\Http\Controllers\SuscriptorController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-Route::get('/', function () {
+
+*/
+ Route::get('/', function () {
     return view('welcome');
 });
-*/
- 
 Route::resource('suscriptores', 'SuscriptorController');
 
  Route::namespace('App\Http\Controllers')->group(function () {
@@ -25,4 +25,15 @@ Route::resource('suscriptores', 'SuscriptorController');
         Route::resource('suscriptores', 'SuscriptorController');
     });
 });
+
+Route::resource('lecturas', 'LecturaController');
+
+ Route::namespace('App\Http\Controllers')->group(function () {
+    Route::prefix('')->group(function () {
+        Route::resource('lecturas', 'LecturaController');
+    });
+});
+
+//Route::post('lecturas', 'LecturaController@create')->name('lecturas.create');
+
     
