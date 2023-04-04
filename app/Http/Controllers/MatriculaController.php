@@ -13,72 +13,78 @@ class MatriculaController extends Controller
      */
     public function index()
     {
-        //
+        $matriculas = Matricula::all();
+        return view('matriculas.index', compact('matriculas'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+ public function create()
     {
-        //
+        return view('matriculas.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'matricula' => 'required',
+            'medidor' => 'required',
+            'ciclo' => 'required',
+            'poliza' => 'required',
+            'observaciones' => 'required',
+        ]);
+
+        $matricula = new matriculas;
+        $matricula->matricula = $request->matricula;
+        $matricula->fecha_matricula = $request->fecha_matricula;
+        $matricula->ciclo = $request->ciclo;
+        $matricula->ano_actual = $request->ano_actual;
+        $matricula->matricula_actual = $request->matricula_actual;
+        $matricula->matricula_anterior = $request->matricula_anterior;
+        $matricula->save();
+
+        return redirect()->route('matriculas.index')->with('success', 'matricula creada correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
+        $matricula = Matricula::findOrFail($id);
+      
+        return view('matriculas.show', compact('matricula'));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+        $matricula = Matricula::find($id);
+        return view('matriculas.edit', compact('matricula'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'matricula' => 'required',
+            'medidor' => 'required',
+            'ciclo' => 'required',
+            'poliza' => 'required',
+            'observaciones' => 'required',
+        ]);
+
+        $matricula = Matricula::find($id);
+        $matricula->matricula = $request->matricula;
+        $matricula->fecha_matricula = $request->fecha_matricula;
+        $matricula->ciclo = $request->ciclo;
+        $matricula->ano_actual = $request->ano_actual;
+        $matricula->matricula_actual = $request->matricula_actual;
+        $matricula->matricula_anterior = $request->matricula_anterior;
+        $matricula->save();
+
+        return redirect()->route('matriculas.index')->with('success', 'matricula actualizada correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $matricula = Matricula::find($id);
+        $matricula->delete();
+        return redirect()->route('matriculas.index')->with('success', 'matricula eliminada correctamente');
     }
 }

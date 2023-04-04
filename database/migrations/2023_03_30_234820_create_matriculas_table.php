@@ -14,7 +14,7 @@ class CreateMatriculasTable extends Migration
     public function up()
     {
         Schema::create('matriculas', function (Blueprint $table) {
-             $table->id();
+            $table->id();
             $table->string('matricula');
             $table->string('medidor');
             $table->string('poliza');

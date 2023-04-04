@@ -34,6 +34,11 @@ Route::resource('lecturas', 'LecturaController');
     });
 });
 
-//Route::post('lecturas', 'LecturaController@create')->name('lecturas.create');
+Route::resource('matriculas', 'MatriculaController');
 
+ Route::namespace('App\Http\Controllers')->group(function () {
+    Route::prefix('')->group(function () {
+        Route::resource('matriculas', 'MatriculaController');
+    });
+});
     
