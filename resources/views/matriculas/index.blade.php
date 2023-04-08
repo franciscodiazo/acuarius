@@ -1,43 +1,41 @@
 @extends('layouts.app')
 
-@section('title', 'Suscriptores')
+@section('title', 'Tarifas')
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Lecturas') }}</div>
-                 <a class="btn btn-primary" href="{{ route('lecturas.create') }}">Crear Usuario</a>
+                <div class="card-header">{{ __('Tarifas') }}</div>
+                 <a class="btn btn-primary" href="{{ route('matriculas.create') }}">Crear Matricula</a>
 
                 <div class="card-body">
                     <table class="table-responsive">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Matrícula</th>
-                                <th>Fecha de Lectura</th>
-                                <th>Ciclo</th>
-                                <th>Año Actual</th>
-                                <th>Lectura Actual</th>
-                                <th>Lectura Anterior</th>
+                                <th>matricula</th>
+                                <th>medidor</th>
+                                <th>poliza</th>
+                                <th>observaciones</th>
+                                <th>estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($lecturas as $lectura)
+                            @foreach($matriculas as $matricula)
                             <tr>
-                                <td>{{ $lectura->id }}</td>
-                                <td>{{ $lectura->matricula }}</td>
-                                <td>{{ $lectura->fecha_lectura }}</td>
-                                <td>{{ $lectura->ciclo }}</td>
-                                <td>{{ $lectura->ano_actual }}</td>
-                                <td>{{ $lectura->lectura_actual }}</td>
-                                <td>{{ $lectura->lectura_anterior }}</td>
+                                <td>{{ $matricula->id }}</td>
+                                <td>{{ $matricula->matricula }}</td>
+                                <td>{{ $matricula->medidor }}</td>
+                                <td>{{ $matricula->poliza }}</td>
+                                <td>{{ $matricula->observaciones }}</td>
+                                <td>{{ $matricula->estado }}</td>
                                 <td>
-                                    <a href="{{ route('lecturas.show', $lectura->id) }}" class="btn btn-primary">{{ __('Mostrar') }}</a>
-                                    <a href="{{ route('lecturas.edit', $lectura->id) }}" class="btn btn-secondary">{{ __('Editar') }}</a>
-                                    <form action="{{ route('lecturas.destroy', $lectura->id) }}" method="POST" style="display: inline-block;">
+                                    <a href="{{ route('matriculas.show', $matricula->id) }}" class="btn btn-primary">{{ __('Mostrar') }}</a>
+                                    <a href="{{ route('matriculas.edit', $matricula->id) }}" class="btn btn-secondary">{{ __('Editar') }}</a>
+                                    <form action="{{ route('matriculas.destroy', $matricula->id) }}" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">{{ __('Eliminar') }}</button>
@@ -45,6 +43,7 @@
                                 </td>
                             </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -53,3 +52,4 @@
     </div>
 </div>
 @endsection
+

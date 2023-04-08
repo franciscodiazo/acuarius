@@ -1,35 +1,43 @@
 @extends('layouts.app')
 
+@section('title', 'Matriculas')
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+ 
 @section('content')
     <div class="container">
-        <h1>Nueva Lectura</h1>
-        <form method="POST" action="{{ route('lecturas.store') }}">
+        <h1>Nueva Matricula</h1>
+        <form method="POST" action="{{ route('matriculas.store') }}">
             @csrf
             <div class="form-group">
                 <label for="matricula">Matrícula</label>
                 <input type="text" class="form-control" id="matricula" name="matricula" required>
             </div>
             <div class="form-group">
-                <label for="fecha_lectura">Fecha de Lectura</label>
-                <input type="date" class="form-control" id="fecha_lectura" name="fecha_lectura" required>
+                <label for="medidor">medidor</label>
+                <input type="text" class="form-control" id="medidor" name="medidor" required>
             </div>
             <div class="form-group">
-                <label for="ciclo">Ciclo</label>
-                <input type="text" class="form-control" id="ciclo" name="ciclo" required>
+                <label for="poliza">poliza</label>
+                <input type="text" class="form-control" id="poliza" name="poliza" required>
             </div>
             <div class="form-group">
-                <label for="ano_actual">Año Actual</label>
-                <input type="number" class="form-control" id="ano_actual" name="ano_actual" required>
+                <label for="observaciones">observaciones</label>
+                <input type="text" class="form-control" id="observaciones" name="observaciones" required>
             </div>
             <div class="form-group">
-                <label for="lectura_actual">Lectura Actual</label>
-                <input type="number" class="form-control" id="lectura_actual" name="lectura_actual" required>
+                <label for="estado">estado</label>
+                <input type="number" class="form-control" id="estado" name="estado" required>
             </div>
-            <div class="form-group">
-                <label for="lectura_anterior">Lectura Anterior</label>
-                <input type="number" class="form-control" id="lectura_anterior" name="lectura_anterior" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Crear Lectura</button>
+            <button type="submit" class="btn btn-primary">Crear Matricula</button>
         </form>
     </div>
 @endsection

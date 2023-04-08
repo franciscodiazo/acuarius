@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Matricula;
+
 
 class MatriculaController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -26,18 +28,17 @@ class MatriculaController extends Controller
         $validatedData = $request->validate([
             'matricula' => 'required',
             'medidor' => 'required',
-            'ciclo' => 'required',
             'poliza' => 'required',
             'observaciones' => 'required',
+            'estado' => 'required',
         ]);
 
-        $matricula = new matriculas;
+        $matricula = new Matricula;
         $matricula->matricula = $request->matricula;
-        $matricula->fecha_matricula = $request->fecha_matricula;
-        $matricula->ciclo = $request->ciclo;
-        $matricula->ano_actual = $request->ano_actual;
-        $matricula->matricula_actual = $request->matricula_actual;
-        $matricula->matricula_anterior = $request->matricula_anterior;
+        $matricula->medidor = $request->medidor;
+        $matricula->poliza = $request->poliza;
+        $matricula->observaciones = $request->observaciones;
+        $matricula->estado = $request->estado;
         $matricula->save();
 
         return redirect()->route('matriculas.index')->with('success', 'matricula creada correctamente');
@@ -61,21 +62,22 @@ class MatriculaController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
+
+
+         $validatedData = $request->validate([
             'matricula' => 'required',
             'medidor' => 'required',
-            'ciclo' => 'required',
             'poliza' => 'required',
             'observaciones' => 'required',
+            'estado' => 'required',
         ]);
 
         $matricula = Matricula::find($id);
         $matricula->matricula = $request->matricula;
-        $matricula->fecha_matricula = $request->fecha_matricula;
-        $matricula->ciclo = $request->ciclo;
-        $matricula->ano_actual = $request->ano_actual;
-        $matricula->matricula_actual = $request->matricula_actual;
-        $matricula->matricula_anterior = $request->matricula_anterior;
+        $matricula->medidor = $request->medidor;
+        $matricula->poliza = $request->poliza;
+        $matricula->observaciones = $request->observaciones;
+        $matricula->estado = $request->estado;
         $matricula->save();
 
         return redirect()->route('matriculas.index')->with('success', 'matricula actualizada correctamente');

@@ -14,6 +14,5 @@ class Lecturas extends Model
         'ciclo',
         'ano_actual',
         'lectura_actual',
-        'lectura_anterior',
     ];
 }

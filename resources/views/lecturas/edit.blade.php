@@ -79,16 +79,6 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label for="lectura_anterior">{{ __('lectura anterior') }}</label>
-                            <input id="lectura_anterior" type="text" class="form-control @error('lectura_anterior') is-invalid @enderror" name="lectura_anterior" value="{{ $lectura->lectura_anterior }}" required autocomplete="lectura_anterior">
-
-                            @error('lectura_anterior')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
                         <button type="submit" class="btn btn-primary">Update</button>
         </form>
 

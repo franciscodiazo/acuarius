@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'lectura')
+@section('title', 'matricula')
 
 
 @section('content')  
@@ -16,7 +16,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">{{ $lectura->matricula }}
+        <div class="col-md-8">{{ $matricula->matricula }}
 
         </div>	
     </div>

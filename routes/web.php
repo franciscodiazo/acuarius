@@ -41,4 +41,22 @@ Route::resource('matriculas', 'MatriculaController');
         Route::resource('matriculas', 'MatriculaController');
     });
 });
-    
+
+Route::resource('tarifas', 'TarifaController');
+ Route::namespace('App\Http\Controllers')->group(function () {
+    Route::prefix('')->group(function () {
+        Route::resource('tarifas', 'TarifaController');
+    });
+});
+
+ Route::get('/detallelectura', 'DetalleLecturaController@index')->name('detallelectura.index');
+
+
+
+Route::resource('detallelectura', 'DetalleLecturaController');
+ Route::namespace('App\Http\Controllers')->group(function () {
+    Route::prefix('')->group(function () {
+        Route::resource('detallelectura', 'DetalleLecturaController');
+    });
+});
+

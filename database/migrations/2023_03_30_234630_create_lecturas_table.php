@@ -20,7 +20,6 @@ class CreateLecturasTable extends Migration
             $table->string('ciclo');
             $table->integer('ano_actual');
             $table->integer('lectura_actual');
-            $table->integer('lectura_anterior');
             $table->timestamps();
         });
     }

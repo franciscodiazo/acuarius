@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Lecturas') }}</div>
-                 <a class="btn btn-primary" href="{{ route('lecturas.create') }}">Crear Usuario</a>
+                 <a class="btn btn-primary" href="{{ route('lecturas.create') }}">Registrar Lectura</a>
 
                 <div class="card-body">
                     <table class="table-responsive">
@@ -20,7 +20,6 @@
                                 <th>Ciclo</th>
                                 <th>Año Actual</th>
                                 <th>Lectura Actual</th>
-                                <th>Lectura Anterior</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -33,7 +32,6 @@
                                 <td>{{ $lectura->ciclo }}</td>
                                 <td>{{ $lectura->ano_actual }}</td>
                                 <td>{{ $lectura->lectura_actual }}</td>
-                                <td>{{ $lectura->lectura_anterior }}</td>
                                 <td>
                                     <a href="{{ route('lecturas.show', $lectura->id) }}" class="btn btn-primary">{{ __('Mostrar') }}</a>
                                     <a href="{{ route('lecturas.edit', $lectura->id) }}" class="btn btn-secondary">{{ __('Editar') }}</a>

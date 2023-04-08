@@ -29,7 +29,6 @@ class LecturaController extends Controller
             'ciclo' => 'required',
             'ano_actual' => 'required',
             'lectura_actual' => 'required',
-            'lectura_anterior' => 'required'
         ]);
 
         $lectura = new Lecturas;
@@ -38,7 +37,6 @@ class LecturaController extends Controller
         $lectura->ciclo = $request->ciclo;
         $lectura->ano_actual = $request->ano_actual;
         $lectura->lectura_actual = $request->lectura_actual;
-        $lectura->lectura_anterior = $request->lectura_anterior;
         $lectura->save();
 
         return redirect()->route('lecturas.index')->with('success', 'Lectura creada correctamente');
@@ -68,7 +66,6 @@ class LecturaController extends Controller
             'ciclo' => 'required',
             'ano_actual' => 'required',
             'lectura_actual' => 'required',
-            'lectura_anterior' => 'required'
         ]);
 
         $lectura = Lecturas::find($id);
@@ -77,7 +74,6 @@ class LecturaController extends Controller
         $lectura->ciclo = $request->ciclo;
         $lectura->ano_actual = $request->ano_actual;
         $lectura->lectura_actual = $request->lectura_actual;
-        $lectura->lectura_anterior = $request->lectura_anterior;
         $lectura->save();
 
         return redirect()->route('lecturas.index')->with('success', 'Lectura actualizada correctamente');

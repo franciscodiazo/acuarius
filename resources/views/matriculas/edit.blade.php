@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'lectura')
+@section('title', 'matricula')
 
 
 @section('content')  
@@ -18,15 +18,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Editar lectura') }}</div>
+                <div class="card-header">{{ __('Editar matricula') }}</div>
                <div class="card-body">
-                     <form method="POST" action="{{ route('lecturas.update', $lectura->id) }}">
+                     <form method="POST" action="{{ route('matriculas.update', $matricula->id) }}">
                         @csrf
                         @method('PUT')
 
                         <div class="form-group">
                             <label for="matricula">{{ __('Matricula') }}</label>
-                            <input id="matricula" type="text" class="form-control @error('matricula') is-invalid @enderror" name="matricula" value="{{ $lectura->matricula }}" required autocomplete="matricula" autofocus>
+                            <input id="matricula" type="text" class="form-control @error('matricula') is-invalid @enderror" name="matricula" value="{{ $matricula->matricula }}" required autocomplete="matricula" autofocus>
 
                             @error('matricula')
                                 <span class="invalid-feedback" role="alert">
@@ -36,10 +36,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="fecha_lectura">{{ __('fecha lectura') }}</label>
-                            <input id="fecha_lectura" type="date" class="form-control @error('fecha_lectura') is-invalid @enderror" name="fecha_lectura" value="{{ $lectura->fecha_lectura }}" required autocomplete="fecha_lectura">
+                            <label for="medidor">{{ __('fecha matricula') }}</label>
+                            <input id="medidor" type="text" class="form-control @error('medidor') is-invalid @enderror" name="medidor" value="{{ $matricula->medidor }}" required autocomplete="medidor">
 
-                            @error('fecha_lectura')
+                            @error('medidor')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -47,10 +47,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="ciclo">{{ __('ciclo') }}</label>
-                            <input id="ciclo" type="text" class="form-control @error('ciclo') is-invalid @enderror" name="ciclo" value="{{ $lectura->ciclo }}" required autocomplete="ciclo">
+                            <label for="poliza">{{ __('poliza') }}</label>
+                            <input id="poliza" type="text" class="form-control @error('poliza') is-invalid @enderror" name="poliza" value="{{ $matricula->poliza }}" required autocomplete="poliza">
 
-                            @error('ciclo')
+                            @error('poliza')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -58,10 +58,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="ano_actual">{{ __('ano_actual') }}</label>
-                            <input id="ano_actual" type="text" class="form-control @error('ano_actual') is-invalid @enderror" name="ano_actual" value="{{ $lectura->ano_actual }}" required autocomplete="ano_actual">
+                            <label for="observaciones">{{ __('observaciones') }}</label>
+                            <input id="observaciones" type="text" class="form-control @error('observaciones') is-invalid @enderror" name="observaciones" value="{{ $matricula->observaciones }}" required autocomplete="observaciones">
 
-                            @error('ano_actual')
+                            @error('observaciones')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -69,26 +69,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="lectura_actual">{{ __('lectura actual') }}</label>
-                            <input id="lectura_actual" type="text" class="form-control @error('lectura_actual') is-invalid @enderror" name="lectura_actual" value="{{ $lectura->lectura_actual }}" required autocomplete="lectura_actual">
+                            <label for="estado">{{ __('estado') }}</label>
+                            <input id="estado" type="text" class="form-control @error('estado') is-invalid @enderror" name="estado" value="{{ $matricula->estado }}" required autocomplete="estado">
 
-                            @error('lectura_actual')
+                            @error('estado')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label for="lectura_anterior">{{ __('lectura anterior') }}</label>
-                            <input id="lectura_anterior" type="text" class="form-control @error('lectura_anterior') is-invalid @enderror" name="lectura_anterior" value="{{ $lectura->lectura_anterior }}" required autocomplete="lectura_anterior">
-
-                            @error('lectura_anterior')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
                         <button type="submit" class="btn btn-primary">Update</button>
         </form>
 

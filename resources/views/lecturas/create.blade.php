@@ -25,10 +25,6 @@
                 <label for="lectura_actual">Lectura Actual</label>
                 <input type="number" class="form-control" id="lectura_actual" name="lectura_actual" required>
             </div>
-            <div class="form-group">
-                <label for="lectura_anterior">Lectura Anterior</label>
-                <input type="number" class="form-control" id="lectura_anterior" name="lectura_anterior" required>
-            </div>
             <button type="submit" class="btn btn-primary">Crear Lectura</button>
         </form>
     </div>
