@@ -16,7 +16,8 @@ class CreateTarifasTable extends Migration
         Schema::create('tarifas', function (Blueprint $table) {
         $table->id();
         $table->string('tipo');
-        $table->float('valor');
+        $table->float('tarifa_base');
+        $table->float('tarifa_recargo');
         $table->timestamps();
     });
 

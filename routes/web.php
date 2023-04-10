@@ -60,3 +60,10 @@ Route::resource('detallelectura', 'DetalleLecturaController');
     });
 });
 
+
+Route::resource('detallefactura', 'DetalleFacturaControlador');
+ Route::namespace('App\Http\Controllers')->group(function () {
+    Route::prefix('')->group(function () {
+        Route::resource('detallefactura', 'DetalleFacturaControlador');
+    });
+});

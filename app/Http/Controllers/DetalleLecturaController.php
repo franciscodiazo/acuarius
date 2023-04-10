@@ -20,83 +20,34 @@ class DetalleLecturaController extends Controller
      */
     public function index()
     {
-    /*$detallelectura = DB::table('lecturas')
-                        ->select('matricula', 'lectura_actual', DB::raw('MAX(fecha_lectura) AS ultima_fecha_lectura'))
-                        ->groupBy('matricula', 'lectura_actual')
-                        ->orderBy('id', 'asc')
-                        ->get();
-    
-        foreach ($detallelectura as $lectura) {
-        $lecturaAnterior = Lecturas::where('matricula', $lectura->matricula)
-                                   ->where('fecha_lectura', '<', $lectura->ultima_fecha_lectura)
-                                   ->orderBy('fecha_lectura', 'desc')
-                                   ->first();
-        if ($lecturaAnterior) {
-            $lectura->lectura_anterior = $lecturaAnterior->lectura_actual;
-            $lectura->diferencia = $lectura->lectura_actual - $lecturaAnterior->lectura_actual;
-        } else {
-            $lectura->lectura_anterior = 0;
-            $lectura->diferencia = 0;
-        }
-    }
 
-    return view('detallelectura.index', compact('detallelectura'));*/
-
-/*        $detallelectura = DB::table('lecturas')
-            ->select('matricula', 'lectura_actual', DB::raw('MAX(fecha_lectura) AS ultima_fecha_lectura'))
-            ->groupBy('matricula', 'lectura_actual')
-            ->orderBy('id', 'asc')
-            ->get();
-
-        $lecturas = [];
-        foreach ($detallelectura as $detalle) {
-            $lectura = new \stdClass();
-            $lectura->matricula = $detalle->matricula;
-            $lectura->ultima_fecha_lectura = $detalle->ultima_fecha_lectura;
-
-            $lecturaAnterior = Lecturas::where('matricula', $detalle->matricula)
-                                       ->where('fecha_lectura', '<', $detalle->ultima_fecha_lectura)
-                                       ->orderBy('fecha_lectura', 'desc')
-                                       ->first();
-            if ($lecturaAnterior) {
-                $lectura->lectura_anterior = $lecturaAnterior->lectura_actual;
-                $lectura->diferencia = $detalle->lectura_actual - $lecturaAnterior->lectura_actual;
-            } else {
-                $lectura->lectura_anterior = 0;
-                $lectura->diferencia = 0;
-            }
-
-            $lecturas[] = $lectura;
-        }
-
-        return view('detallelectura.index', compact('lecturas'));*/
         $ultimasLecturas = DB::table('lecturas')
-    ->select('matricula', 'lectura_actual', 'fecha_lectura')
-    ->whereIn('id', function ($query) {
+            ->select('matricula', 'lectura_actual', 'fecha_lectura')
+            ->whereIn('id', function ($query) {
         $query->select(DB::raw('MAX(id)'))
             ->from('lecturas')
             ->groupBy('matricula');
     })
     ->get();
 
-$lecturas = [];
-foreach ($ultimasLecturas as $ultimaLectura) {
-    $lecturaAnterior = Lecturas::where('matricula', $ultimaLectura->matricula)
-        ->where('fecha_lectura', '<', $ultimaLectura->fecha_lectura)
-        ->orderBy('fecha_lectura', 'desc')
-        ->first();
+    $lecturas = [];
+    foreach ($ultimasLecturas as $ultimaLectura) {
+        $lecturaAnterior = Lecturas::where('matricula', $ultimaLectura->matricula)
+            ->where('fecha_lectura', '<', $ultimaLectura->fecha_lectura)
+            ->orderBy('fecha_lectura', 'desc')
+            ->first();
 
-    $lectura = new \stdClass();
-    $lectura->matricula = $ultimaLectura->matricula;
-    $lectura->ultima_fecha_lectura = $ultimaLectura->fecha_lectura;
-    $lectura->lectura_actual = $ultimaLectura->lectura_actual;
-    $lectura->lectura_anterior = $lecturaAnterior ? $lecturaAnterior->lectura_actual : 0;
-    $lectura->diferencia = $lectura->lectura_actual - $lectura->lectura_anterior;
+        $lectura = new \stdClass();
+        $lectura->matricula = $ultimaLectura->matricula;
+        $lectura->ultima_fecha_lectura = $ultimaLectura->fecha_lectura;
+        $lectura->lectura_actual = $ultimaLectura->lectura_actual;
+        $lectura->lectura_anterior = $lecturaAnterior ? $lecturaAnterior->lectura_actual : 0;
+        $lectura->diferencia = $lectura->lectura_actual - $lectura->lectura_anterior;
 
-    $lecturas[] = $lectura;
-}
+        $lecturas[] = $lectura;
+    }
 
-return view('detallelectura.index', compact('lecturas'));
+    return view('detallelectura.index', compact('lecturas'));
 
 
 
