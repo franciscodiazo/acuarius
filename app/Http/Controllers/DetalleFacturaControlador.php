@@ -9,6 +9,9 @@ use Carbon\Carbon;
 use App\Models\DetalleFactura;
 use App\Models\Lecturas;
 use App\Models\Subscriber;
+use Illuminate\Support\Facades\Storage;
+use Dompdf\Dompdf;
+use PDF;
 
 class DetalleFacturaControlador extends Controller
 {
@@ -166,7 +169,8 @@ class DetalleFacturaControlador extends Controller
      */
     public function show($id)
     {
-        //
+        $detallefactura = DetalleFactura::find($id);
+        return view('detallefactura.show', compact('detallefactura'));
     }
 
     /**
@@ -178,7 +182,17 @@ class DetalleFacturaControlador extends Controller
     public function edit($id)
     {
         //
+            $detallefactura = DetalleFactura::find($id);
+    return view('detallefactura.edit', compact('detallefactura'));
     }
+    
+public function pdf($id)
+{
+    $detalles = DetalleFactura::find($id);
+    $pdf = PDF::loadView('facturas.pdf', compact('detalles'));
+    return $pdf->download('factura.pdf');
+}
+
 
     /**
      * Update the specified resource in storage.
@@ -201,5 +215,13 @@ class DetalleFacturaControlador extends Controller
     public function destroy($id)
     {
         //
+    }
+
+        public function generate($id)
+    {
+        $detalles = DetalleFactura::find($id);
+        $pdf = PDF::loadView('facturas.pdf', compact('detalles'));
+
+        return $pdf->download('factura.pdf');
     }
 }

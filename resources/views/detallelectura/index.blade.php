@@ -2,10 +2,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>detallelectura anteriores</h1>Total registros: {{ count($lecturas) }}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"> <h1>{{ __('Suscriptores | Cuota Familiar') }}</h1>Total registros: {{ count($lecturas) }} </div>
 
-
-<table>
+                <div class="table-responsive">
+                    <table class="table table-striped">
     <thead>
         <tr>
             <th>Matrícula</th>
@@ -28,6 +32,11 @@
 
     </tbody>
 </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

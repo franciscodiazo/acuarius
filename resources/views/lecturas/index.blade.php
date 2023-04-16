@@ -9,9 +9,8 @@
             <div class="card">
                 <div class="card-header">{{ __('Lecturas') }}</div>
                  <a class="btn btn-primary" href="{{ route('lecturas.create') }}">Registrar Lectura</a>
-
-                <div class="card-body">
-                    <table class="table-responsive">
+                    <div class="table-responsive">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>

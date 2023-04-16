@@ -9,7 +9,15 @@
                 Lecturas
               </p>
             </a>
-            <ul class="nav nav-treeview">
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('detallelectura.index') }}" class="nav-link active">
+              <i class="nav-icon fas fa-sticky-note"></i>
+              <p>
+                Detalle lectura
+              </p>
+            </a>
+          </li>
               <li class="nav-item">
                 <a href="{{ route('suscriptores.index') }}" class="nav-link">
                  <i class="nav-icon fas fa-copy"></i><i class="fas "></i>
@@ -28,13 +36,11 @@
                   <p>Tarifas</p>
                 </a>
               </li>
-            </ul>
-          </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('detalles.index') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Pagos
+                Detalles Cuota
               </p>
             </a>
           </li>
@@ -47,18 +53,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('detallefactura.index') }}" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Facturas
+                Detalle Factura
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('tarifas.index') }}" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                Credito y Cartera
+                Tarifas
               </p>
             </a>
           </li>

@@ -15,55 +15,18 @@ use App\Http\Controllers\SuscriptorController;
 |
 
 */
- Route::get('/', function () {
-    return view('welcome');
-});
+Route::namespace('App\Http\Controllers')->group(function () {
 Route::resource('suscriptores', 'SuscriptorController');
-
- Route::namespace('App\Http\Controllers')->group(function () {
-    Route::prefix('')->group(function () {
-        Route::resource('suscriptores', 'SuscriptorController');
-    });
-});
-
 Route::resource('lecturas', 'LecturaController');
-
- Route::namespace('App\Http\Controllers')->group(function () {
-    Route::prefix('')->group(function () {
-        Route::resource('lecturas', 'LecturaController');
-    });
-});
-
 Route::resource('matriculas', 'MatriculaController');
-
- Route::namespace('App\Http\Controllers')->group(function () {
-    Route::prefix('')->group(function () {
-        Route::resource('matriculas', 'MatriculaController');
-    });
-});
-
 Route::resource('tarifas', 'TarifaController');
- Route::namespace('App\Http\Controllers')->group(function () {
-    Route::prefix('')->group(function () {
-        Route::resource('tarifas', 'TarifaController');
-    });
-});
-
- Route::get('/detallelectura', 'DetalleLecturaController@index')->name('detallelectura.index');
-
-
-
 Route::resource('detallelectura', 'DetalleLecturaController');
- Route::namespace('App\Http\Controllers')->group(function () {
-    Route::prefix('')->group(function () {
-        Route::resource('detallelectura', 'DetalleLecturaController');
-    });
-});
-
-
 Route::resource('detallefactura', 'DetalleFacturaControlador');
- Route::namespace('App\Http\Controllers')->group(function () {
-    Route::prefix('')->group(function () {
-        Route::resource('detallefactura', 'DetalleFacturaControlador');
-    });
+Route::resource('detalles', 'FacturaController')->except('show');
+Route::get('/detalles/{id}', 'FacturaController@show')->name('facturas.show');
+//Route::get('facturas/pdf/{id}', [FacturaController::class, 'pdf'])->name('facturas.pdf');
+Route::get('/imprimir', 'FacturaController@imprimirPdf');
+//Route::get('/facturas/{id}/imprimir', 'FacturaController@imprimirPdf');
+Route::get('/facturas/imprimir/{id}', 'FacturaController@imprimirPdf')->name('facturas.imprimir');
+
 });

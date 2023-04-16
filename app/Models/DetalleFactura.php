@@ -10,7 +10,7 @@ class DetalleFactura extends Model
     use HasFactory;
     protected $table = 'detalle_factura';
 
-//    protected $primaryKey = 'id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'id_detalle_lectura',

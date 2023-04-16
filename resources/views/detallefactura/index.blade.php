@@ -5,8 +5,16 @@
 @php
 $total_costo = 0;
 @endphp
-<div class="card-body">
-    <table class="table-responsive">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">{{ __('Suscriptores | Usuarios') }}</div>
+                <a class="btn btn-primary" href="{{ route('suscriptores.create') }}">Crear Usuario</a>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+
     <thead>
         <tr>
             <th>id</th>
@@ -15,8 +23,10 @@ $total_costo = 0;
             <th>Ultima Fecha de Lectura</th>
             <th>Lectura Actual</th>
             <th>Lectura Anterior</th>
-            <th>Diferencia</th>
+            <th>Consumo</th>
             <th>Total Factura</th>
+            <th>Revisar</th> <!-- Nueva columna -->
+
         </tr>
     </thead>
     <tbody>
@@ -30,6 +40,10 @@ $total_costo = 0;
             <td>{{ $lectura->lectura_anterior }}</td>
             <td>{{ $lectura->diferencia }}</td>
             <td align="right">${{ number_format($lectura->costo, 0, ',', '.') }}</td>
+            <td>
+            <a href="{{ route('detallefactura.show', $lectura->id) }}" class="btn btn-primary">Revisar</a>
+            <a href="{{ route('detallefactura.edit', $lectura->id) }}" class="btn btn-warning">Editar</a>
+            </td> 
         </tr>
         @php
         $total_costo += $lectura->costo;
@@ -41,6 +55,11 @@ $total_costo = 0;
 
 
 </table>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
         <form method="POST" action="{{ route('detallefactura.store') }}">
             @csrf
