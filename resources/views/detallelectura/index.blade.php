@@ -32,6 +32,10 @@
 
     </tbody>
 </table>
+{{ $ultimasLecturas->links() }}
+
+
+
                     </div>
                 </div>
             </div>

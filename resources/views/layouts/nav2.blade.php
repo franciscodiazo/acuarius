@@ -68,4 +68,28 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('tarifas.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                ss
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a href="{{ route('creditos.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                creditos
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('tarifas.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                s
+              </p>
+            </a>
+          </li>                             
         </ul>

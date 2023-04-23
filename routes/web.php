@@ -18,6 +18,8 @@ use App\Http\Controllers\SuscriptorController;
 Route::namespace('App\Http\Controllers')->group(function () {
 Route::resource('suscriptores', 'SuscriptorController');
 Route::resource('lecturas', 'LecturaController');
+Route::get('lecturas/{lectura}', 'LecturasController@show')->name('lecturas.show');
+Route::get('/lecturas/{lectura}', [LecturasController::class, 'show'])->name('lecturas.show');
 Route::resource('matriculas', 'MatriculaController');
 Route::resource('tarifas', 'TarifaController');
 Route::resource('detallelectura', 'DetalleLecturaController');
@@ -28,5 +30,9 @@ Route::get('/detalles/{id}', 'FacturaController@show')->name('facturas.show');
 Route::get('/imprimir', 'FacturaController@imprimirPdf');
 //Route::get('/facturas/{id}/imprimir', 'FacturaController@imprimirPdf');
 Route::get('/facturas/imprimir/{id}', 'FacturaController@imprimirPdf')->name('facturas.imprimir');
+Route::resource('creditos', 'CreditosController')->except('creditos');
+Route::get('creditos/{id}', 'CreditosController@show')->name('creditos.show');
+
+Route::resource('pagos', 'PagosController')->except('pagos');
 
 });

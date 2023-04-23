@@ -23,25 +23,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($lecturas as $lectura)
-                            <tr>
-                                <td>{{ $lectura->id }}</td>
-                                <td>{{ $lectura->matricula }}</td>
-                                <td>{{ $lectura->fecha_lectura }}</td>
-                                <td>{{ $lectura->ciclo }}</td>
-                                <td>{{ $lectura->ano_actual }}</td>
-                                <td>{{ $lectura->lectura_actual }}</td>
-                                <td>
-                                    <a href="{{ route('lecturas.show', $lectura->id) }}" class="btn btn-primary">{{ __('Mostrar') }}</a>
-                                    <a href="{{ route('lecturas.edit', $lectura->id) }}" class="btn btn-secondary">{{ __('Editar') }}</a>
-                                    <form action="{{ route('lecturas.destroy', $lectura->id) }}" method="POST" style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">{{ __('Eliminar') }}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
+
+                            @foreach ($lecturas as $lectura)
+    <tr>
+        <td>{{ $lectura->id }}</td>
+        <td>{{ $lectura->matricula }}</td>
+        <td>{{ $lectura->ciclo_maximo }}</td>
+        <td>{{ $lectura->ano_actual }}</td>
+        <td>{{ $lectura->lectura_actual }}</td>
+        <td>{{ $lectura->ultima_fecha_lectura }}</td>
+        <td>
+            <a href="{{ route('lecturas.show', ['lectura' => $lectura->id]) }}" class="btn btn-primary">{{ __('Mostrar') }}</a>
+            <a href="{{ route('lecturas.edit', $lectura->id) }}" class="btn btn-secondary">{{ __('Editar') }}</a>
+            <form action="{{ route('lecturas.destroy', $lectura->id) }}" method="POST" style="display: inline-block;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">{{ __('Eliminar') }}</button>
+            </form>
+        </td>
+    </tr>
+@endforeach
+
                         </tbody>
                     </table>
                 </div>

@@ -22,14 +22,28 @@ class FacturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
+    {
+    $detalles = DetalleFactura::join('suscriptores', 'detalle_factura.matricula', '=', 'suscriptores.matricula')
+                               ->select('detalle_factura.*', 'suscriptores.nombres', 'suscriptores.apellidos')
+                               ->with('subscriber')
+                               ->paginate(10);
+
+  //                             ->get();
+
+    return view('facturas.index', compact('detalles'));
+
+    }
+
+    /*public function index()
     {
         //
             $detalles = DetalleFactura::all();
             return view('facturas.index', compact('detalles'));
 
     }
-
+*/
     /**
      * Show the form for creating a new resource.
      *

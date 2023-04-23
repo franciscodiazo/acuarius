@@ -27,4 +27,9 @@ class DetalleFactura extends Model
     {
         return $this->belongsTo('App\Models\Suscriber', 'matricula');
     }*/
+        public function subscriber()
+    {
+        return $this->belongsTo(Subscriber::class, 'matricula');
+    }
+
 }

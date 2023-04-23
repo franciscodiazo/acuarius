@@ -26,4 +26,9 @@ class Subscriber extends Model
         'coordenadas',
         'estado',
     ];
+
+     public function creditos()
+    {
+        return $this->hasMany(Credito::class, 'matricula');
+    }
 }

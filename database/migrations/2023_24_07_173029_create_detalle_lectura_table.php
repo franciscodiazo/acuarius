@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetalleFacturaTable extends Migration
+class CreateDetalleLecturaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,14 @@ class CreateDetalleFacturaTable extends Migration
      */
     public function up()
     {
-        Schema::create('detalle_factura', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_detalle_lectura');
-            $table->string('ciclo');
-            $table->date('ultima_fecha_lectura');
+        Schema::create('detalle_lectura', function (Blueprint $table) {
+            $table->id('id');
+            $table->integer('matricula');
+            $table->date('fecha_lectura');
             $table->integer('lectura_anterior');
             $table->integer('lectura_actual');
             $table->integer('consumo');
-            $table->decimal('valor_total', 8, 2);
             $table->timestamps();
-            $table->foreignId('matricula')->constrained('suscriptores');
         });
     }
 
@@ -34,6 +31,6 @@ class CreateDetalleFacturaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalle_factura');
+        Schema::dropIfExists('detalle_lectura');
     }
 }

@@ -1,7 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 use App\Models\Lecturas;
 
 class LecturaController extends Controller
@@ -11,11 +13,20 @@ class LecturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+   /* public function index()
     {
         $lecturas = Lecturas::all();
         return view('lecturas.index', compact('lecturas'));
-    }
+       
+    }*/
+    public function index()
+{
+     $lecturas = Lecturas::select('id', 'matricula', DB::raw('MAX(ciclo) as ciclo_maximo'), 'ano_actual', 'lectura_actual', DB::raw('MAX(fecha_lectura) as ultima_fecha_lectura'))
+                ->groupBy('id', 'matricula', 'ano_actual', 'lectura_actual')
+                ->get();
+    return view('lecturas.index', compact('lecturas'));
+}
+
  public function create()
     {
         return view('lecturas.create');

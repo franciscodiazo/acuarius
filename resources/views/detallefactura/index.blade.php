@@ -53,8 +53,6 @@ $total_costo = 0;
     </tbody>
     <p>Total costo: ${{ number_format($total_costo, 0, ',', '.') }}</p>
 
-
-</table>
                     </table>
                 </div>
             </div>

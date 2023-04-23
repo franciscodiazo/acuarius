@@ -5,14 +5,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Suscriptores | Cuota Familiar') }}</div>
+                <div class="card-header">{{ __('Suscriptores | Cuota Familiar')}}</div>
 
                 <div class="table-responsive">
                     <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>ID Detalle Lectura</th>
+                                    <th>IdLectura</th>
                                     <th>Matrícula</th>
                                     <th>Ciclo</th>
                                     <th>Última Fecha Lectura</th>
@@ -29,7 +29,7 @@
                                     <tr>
                                         <td>{{ $detalleFactura->id }}</td>
                                         <td>{{ $detalleFactura->id_detalle_lectura }}</td>
-                                        <td>{{ $detalleFactura->matricula }}</td>
+                                        <td>{{ $detalleFactura->matricula }} {{ $detalleFactura->subscriber->nombres }} {{ $detalleFactura->subscriber->apellidos }}</td>
                                         <td>{{ $detalleFactura->ciclo }}</td>
                                         <td>{{ $detalleFactura->ultima_fecha_lectura }}</td>
                                         <td>{{ $detalleFactura->lectura_anterior }}</td>
@@ -48,9 +48,16 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
-                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ $detalles->links() }}
+                            </div>
+                        </div>
+                    </div>                                
+
                 </div>
             </div>
         </div>

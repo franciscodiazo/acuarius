@@ -13,20 +13,17 @@ class CreateFacturacionTable extends Migration
      */
     public function up()
     {
-         Schema::create('facturas', function (Blueprint $table) {
+         Schema::create('facturacion', function (Blueprint $table) {
             $table->id();
             $table->string('numero');
             $table->date('fecha_emision');
-            $table->date('fecha_vencimiento')->nullable();
-            $table->unsignedBigInteger('matricula');
-            $table->foreign('matricula')->references('matricula')->on('suscriptores');
+            $table->date('fecha_vencimiento');
+            $table->integer('matricula');
             $table->decimal('monto_total', 8, 2);
-            $table->enum('estado', ['pendiente', 'pagada', 'anulada']);
-            $table->date('fecha_pago')->nullable();
-            $table->string('forma_pago')->nullable();
+            $table->enum('estado', ['pendiente', 'pagado']);
+            $table->date('fecha_pago');
+            $table->string('forma_pago');
             $table->json('detalle');
-            $table->unsignedBigInteger('id_detallefactura');
-            $table->foreign('id_detallefactura')->references('id')->on('detallefactura');
             $table->timestamps();
         });
     }
@@ -38,6 +35,6 @@ class CreateFacturacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('facturacion');
+        Schema::dropIfExists('facturas');
     }
 }
