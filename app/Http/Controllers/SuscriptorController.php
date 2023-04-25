@@ -1,6 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
+
+use Maatwebsite\Excel\Facades\Excel;  // importación para utilizar la clase Excel
+use Maatwebsite\Excel\Concerns\FromCollection; // importación de la interfaz FromCollection
+
+use App\Exports\SubscribersExport;
 
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
@@ -13,11 +17,28 @@ class SuscriptorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+public function index(Request $request)
+{
+    $search = $request->get('search');
+    $suscriptores = Subscriber::where('cedula', 'like', '%'.$search.'%')
+                          ->orWhere('apellidos', 'like', '%'.$search.'%')
+                          ->orWhere('nombres', 'like', '%'.$search.'%')
+                          ->orWhere('matricula', 'like', '%'.$search.'%')
+                          ->orWhere('fecha_nacimiento', 'like', '%'.$search.'%')
+                          ->orWhere('email', 'like', '%'.$search.'%')
+                          ->orWhere('telefono', 'like', '%'.$search.'%')
+                          ->orWhere('direccion_residencia', 'like', '%'.$search.'%')
+                          ->orWhere('vereda', 'like', '%'.$search.'%')
+                          ->orWhere('sector', 'like', '%'.$search.'%')
+                          ->paginate(10);
+
+return view('suscriptores.index', compact('suscriptores', 'search'));
+}
+
+public function export()
     {
-        //
-        $suscriptores = Subscriber::all();
-        return view('suscriptores.index', compact('suscriptores'));
+        return Excel::download(new SubscribersExport(), 'suscriptores.xlsx');
     }
 
     /**

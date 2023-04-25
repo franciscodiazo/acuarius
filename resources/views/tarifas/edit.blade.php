@@ -36,8 +36,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="valor">{{ __('valor') }}</label>
-                            <input id="valor" type="text" class="form-control @error('valor') is-invalid @enderror" name="valor" value="{{ $tarifa->valor }}" required autocomplete="valor">
+                            <label for="tarifa_base">{{ __('tarifa_base') }}</label>
+                            <input id="tarifa_base" type="text" class="form-control @error('tarifa_base') is-invalid @enderror" name="tarifa_base" value="{{ $tarifa->tarifa_base }}" required autocomplete="tarifa_base">
+
+                            @error('medidor')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="tarifa_recargo">{{ __('tarifa_recargo') }}</label>
+                            <input id="tarifa_recargo" type="text" class="form-control @error('tarifa_recargo') is-invalid @enderror" name="tarifa_recargo" value="{{ $tarifa->tarifa_recargo }}" required autocomplete="tarifa_recargo">
 
                             @error('medidor')
                                 <span class="invalid-feedback" role="alert">

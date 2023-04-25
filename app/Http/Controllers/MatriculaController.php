@@ -13,10 +13,14 @@ class MatriculaController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $matriculas = Matricula::all();
-        return view('matriculas.index', compact('matriculas'));
+
+        $search = $request->get('search');
+        
+        $matriculas = Matricula::where('matricula', 'like', '%'.$search.'%')
+                            ->paginate(10);
+        return view('matriculas.index', compact('matriculas', 'search'));
     }
  public function create()
     {

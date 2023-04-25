@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Lecturas') }}</div>
+                <div class="card-header">{{ __('Lecturas') }} Total registros: {{ count($lecturas) }}</div>
                  <a class="btn btn-primary" href="{{ route('lecturas.create') }}">Registrar Lectura</a>
                     <div class="table-responsive">
                     <table class="table table-striped">
@@ -28,10 +28,10 @@
     <tr>
         <td>{{ $lectura->id }}</td>
         <td>{{ $lectura->matricula }}</td>
-        <td>{{ $lectura->ciclo_maximo }}</td>
+        <td>{{ $lectura->ciclo }}</td>
         <td>{{ $lectura->ano_actual }}</td>
         <td>{{ $lectura->lectura_actual }}</td>
-        <td>{{ $lectura->ultima_fecha_lectura }}</td>
+        <td>{{ $lectura->fecha_lectura }}</td>
         <td>
             <a href="{{ route('lecturas.show', ['lectura' => $lectura->id]) }}" class="btn btn-primary">{{ __('Mostrar') }}</a>
             <a href="{{ route('lecturas.edit', $lectura->id) }}" class="btn btn-secondary">{{ __('Editar') }}</a>

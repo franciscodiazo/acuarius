@@ -21,7 +21,8 @@ class CreateDetalleFacturaTable extends Migration
             $table->integer('lectura_anterior');
             $table->integer('lectura_actual');
             $table->integer('consumo');
-            $table->decimal('valor_total', 8, 2);
+            $table->decimal('valor_total', 12, 2);            
+            $table->enum('estado', ['pendiente', 'facturado']);
             $table->timestamps();
             $table->foreignId('matricula');
         });

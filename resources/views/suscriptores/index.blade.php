@@ -7,10 +7,23 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Suscriptores | Usuarios') }}</div>
+                <div class="card-header">{{ __('Suscriptores | Usuarios') }}
+
+                </div>
                 <a class="btn btn-primary" href="{{ route('suscriptores.create') }}">Crear Usuario</a>
+<form action="{{ route('suscriptores.index') }}" method="GET">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Buscar..." name="search" value="{{ $search }}">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
 
                 <div class="table-responsive">
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -65,7 +78,7 @@
 
                         </tbody>
                     </table>
-                </div>
+                </div>{{ $suscriptores->links() }} <!-- muestra los enlaces de paginación -->
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ class Tarifa extends Model
     use HasFactory;
     protected $fillable = [
         'tipo',
-        'valor',
+        'tarifa_base',
+        'tarifa_recargo',
     ];
 }

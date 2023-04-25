@@ -9,11 +9,14 @@ use Illuminate\Http\Request;
 
 class CreditosController extends Controller
 {
-     public function index()
+     public function index(Request $request)
     {
-        $creditos = Credito::all();
+        $search = $request->get('search');
+        
+        $creditos = Credito::where('matricula', 'like', '%'.$search.'%')
+                        ->paginate(10);;
 
-        return view('creditos.index', compact('creditos'));
+        return view('creditos.index', compact('creditos', 'search'));
  
     }
 

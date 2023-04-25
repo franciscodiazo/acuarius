@@ -9,6 +9,16 @@
             <div class="card">
                 <div class="card-header">{{ __('Tarifas') }}</div>
                  <a class="btn btn-primary" href="{{ route('matriculas.create') }}">Crear Matricula</a>
+<form action="{{ route('matriculas.index') }}" method="GET">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Buscar..." name="search" value="{{ $search }}">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
 
                 <div class="card-body">
                     <table class="table-responsive">
@@ -46,7 +56,7 @@
 
                         </tbody>
                     </table>
-                </div>
+                </div>{{ $matriculas->links() }} <!-- muestra los enlaces de paginación -->
             </div>
         </div>
     </div>

@@ -13,17 +13,23 @@ class LecturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   /* public function index()
-    {
-        $lecturas = Lecturas::all();
-        return view('lecturas.index', compact('lecturas'));
-       
-    }*/
     public function index()
 {
-     $lecturas = Lecturas::select('id', 'matricula', DB::raw('MAX(ciclo) as ciclo_maximo'), 'ano_actual', 'lectura_actual', DB::raw('MAX(fecha_lectura) as ultima_fecha_lectura'))
-                ->groupBy('id', 'matricula', 'ano_actual', 'lectura_actual')
+  /*  $lecturas = Lecturas::select(DB::raw('MAX(id) as id_max'), 'matricula', DB::raw('MAX(ciclo) as ciclo_maximo'), 'ano_actual', 'lectura_actual', DB::raw('MAX(fecha_lectura) as ultima_fecha_lectura'))
+                ->groupBy('matricula', 'ano_actual', 'lectura_actual')
+                ->orderBy('matricula', 'desc')
                 ->get();
+    return view('lecturas.index', compact('lecturas'));
+    */
+     $lecturas = DB::table('lecturas')
+        ->select('id', 'matricula', 'ciclo', 'ano_actual', 'lectura_actual', 'fecha_lectura')
+        ->whereIn('id', function ($query) {
+            $query->select(DB::raw('MAX(id)'))
+                ->from('lecturas')
+                ->groupBy('matricula');
+        })
+        ->get();
+
     return view('lecturas.index', compact('lecturas'));
 }
 

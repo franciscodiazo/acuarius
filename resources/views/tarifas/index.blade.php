@@ -16,7 +16,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>tipo</th>
-                                <th>valor</th>
+                                <th>valor Base</th>
+                                <th>valor Recargo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -24,7 +25,8 @@
                             <tr>
                                 <td>{{ $tarifa->id }}</td>
                                 <td>{{ $tarifa->tipo }}</td>
-                                <td>{{ $tarifa->valor }}</td>
+                                <td>{{ $tarifa->tarifa_base }}</td>
+                                <td>{{ $tarifa->tarifa_recargo }}</td>
                                 <td>
                                     <a href="{{ route('tarifas.show', $tarifa->id) }}" class="btn btn-primary">{{ __('Mostrar') }}</a>
                                     <a href="{{ route('tarifas.edit', $tarifa->id) }}" class="btn btn-secondary">{{ __('Editar') }}</a>

@@ -5,6 +5,17 @@
         <h1>Listado de Créditos</h1>
         <div class="mb-2">
             <a href="{{ route('creditos.create') }}" class="btn btn-success">Agregar Crédito</a>
+<form action="{{ route('creditos.index') }}" method="GET">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Buscar..." name="search" value="{{ $search }}">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
         </div>
         @if (count($creditos) > 0)
             <table class="table table-striped">

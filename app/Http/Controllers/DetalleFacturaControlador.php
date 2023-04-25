@@ -21,22 +21,28 @@ class DetalleFacturaControlador extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $tarifas = DB::table('tarifas')->first();
+{
+    $tarifas = DB::table('tarifas')->first();
+    if ($tarifas) {
         $tarifa_base = $tarifas->tarifa_base;
         $tarifa_recargo = $tarifas->tarifa_recargo;
+    } else {
+        // handle the error here, e.g. by setting default values
+        $tarifa_base = 0;
+        $tarifa_recargo = 0;
+    }
 
+    $ultimasLecturas = DB::table('lecturas')
+        ->select('id','matricula', 'ciclo', 'lectura_actual', 'fecha_lectura')
+        ->whereIn('id', function ($query) {
+            $query->select(DB::raw('MAX(id)'))
+                ->from('lecturas')
+                ->groupBy('matricula');
+        })
+        ->get();
 
-        $ultimasLecturas = DB::table('lecturas')
-            ->select('id','matricula', 'ciclo', 'lectura_actual', 'fecha_lectura')
-            ->whereIn('id', function ($query) {
-        $query->select(DB::raw('MAX(id)'))
-            ->from('lecturas')
-            ->groupBy('matricula');
-    })
-    ->get();
+    $detallefactura = []; // Inicializar la variable
 
-    $lecturas = [];
     foreach ($ultimasLecturas as $ultimaLectura) {
         $lecturaAnterior = Lecturas::where('matricula', $ultimaLectura->matricula)
             ->where('fecha_lectura', '<', $ultimaLectura->fecha_lectura)
@@ -52,25 +58,22 @@ class DetalleFacturaControlador extends Controller
         $lectura->lectura_anterior = $lecturaAnterior ? $lecturaAnterior->lectura_actual : 0;
         $lectura->diferencia = $lectura->lectura_actual - $lectura->lectura_anterior;
 
-            $consumo = $lectura->diferencia;
-            $costo = $tarifa_base;
-
-     if ($consumo > 50) {
-        $costo = ($consumo - 50) * $tarifa_recargo;
-        $costo += $tarifa_base;
-    } else {
+        $consumo = $lectura->diferencia;
         $costo = $tarifa_base;
-    }
-    $lectura->costo = $costo;
 
+        if ($consumo > 50) {
+            $costo = ($consumo - 50) * $tarifa_recargo;
+            $costo += $tarifa_base;
+        } else {
+            $costo = $tarifa_base;
+        }
+        $lectura->costo = $costo;
 
         $detallefactura[] = $lectura;
     }
 
     return view('detallefactura.index', compact('detallefactura'));
-
-
-    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -91,7 +94,11 @@ class DetalleFacturaControlador extends Controller
     public function store(Request $request)
     {
         $tarifas = DB::table('tarifas')->first();
+       if(!$tarifas){
+            return redirect()->route('tarifas.index');
+        }
         $tarifa_base = $tarifas->tarifa_base;
+       
         $tarifa_recargo = $tarifas->tarifa_recargo;
 
 
@@ -138,8 +145,12 @@ class DetalleFacturaControlador extends Controller
         ->first();
 
     if ($lecturaExistente) {
-        echo "La lectura de la matrícula " . $lectura->matricula . " para el ciclo " . $lectura->ciclo . " ya ha sido almacenada en la tabla detallefactura.<br>";
-        continue; // Pasar a la siguiente lectura
+     //   echo "La lectura de la matrícula " . $lectura->matricula . " para el ciclo " . $lectura->ciclo . " ya ha sido almacenada en la tabla detallefactura.<br>";
+      
+     //   continue; // Pasar a la siguiente lectura
+
+        return redirect()->back()->with('success', 'Las lecturas de la matrícula para el ciclo ' . $lectura->ciclo . ' ya han sido almacenadas en la tabla detallefactura.');
+
     }
 
 
@@ -158,7 +169,9 @@ class DetalleFacturaControlador extends Controller
             $detalleFactura->save();
         }
 
-        return "Lecturas almacenadas en detallefactura";
+      //  return "Lecturas almacenadas en detallefactura";
+        return redirect()->back()->with('success', 'Lecturas almacenadas en detallefactura.');
+
     }
 
     /**
@@ -182,7 +195,7 @@ class DetalleFacturaControlador extends Controller
     public function edit($id)
     {
         //
-            $detallefactura = DetalleFactura::find($id);
+    $detallefactura = DetalleFactura::find($id);
     return view('detallefactura.edit', compact('detallefactura'));
     }
     

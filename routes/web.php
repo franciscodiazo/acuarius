@@ -18,8 +18,8 @@ use App\Http\Controllers\SuscriptorController;
 Route::namespace('App\Http\Controllers')->group(function () {
 Route::resource('suscriptores', 'SuscriptorController');
 Route::resource('lecturas', 'LecturaController');
-Route::get('lecturas/{lectura}', 'LecturasController@show')->name('lecturas.show');
-Route::get('/lecturas/{lectura}', [LecturasController::class, 'show'])->name('lecturas.show');
+//Route::get('lecturas/{lectura}', 'LecturasController@show')->name('lecturas.show');
+//Route::get('/lecturas/{lectura}', [LecturasController::class, 'show'])->name('lecturas.show');
 Route::resource('matriculas', 'MatriculaController');
 Route::resource('tarifas', 'TarifaController');
 Route::resource('detallelectura', 'DetalleLecturaController');
@@ -34,5 +34,13 @@ Route::resource('creditos', 'CreditosController')->except('creditos');
 Route::get('creditos/{id}', 'CreditosController@show')->name('creditos.show');
 
 Route::resource('pagos', 'PagosController')->except('pagos');
+Route::get('suscriptores/export', 'SuscriptorController@export')->name('suscriptores.export');
+Route::get('/suscriptores/exportar', [SuscriptorController::class, 'export'])->name('suscriptores.export');
+/*
+Route::get('/backup', 'BackupController@index')->name('backup.index');
+Route::post('/backup/create', 'BackupController@create')->name('backup.create');
+Route::get('/backup/download', 'BackupController@download')->name('backup.download');
+*/
+
 
 });

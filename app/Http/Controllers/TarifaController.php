@@ -41,7 +41,8 @@ class TarifaController extends Controller
         //
         $tarifa = new Tarifa();
         $tarifa->tipo = $request->tipo;
-        $tarifa->valor = $request->valor;
+        $tarifa->tarifa_base = $request->tarifa_base;
+        $tarifa->tarifa_recargo = $request->tarifa_recargo;
         $tarifa->save();
         return redirect()->route('tarifas.index');
 

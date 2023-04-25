@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Suscriptores')
+
 @section('content')
     <h1>detallefactura anteriores</h1>Total registros: {{ count($detallefactura) }}
 @php
@@ -41,10 +43,10 @@ $total_costo = 0;
             <td>{{ $lectura->diferencia }}</td>
             <td align="right">${{ number_format($lectura->costo, 0, ',', '.') }}</td>
             <td>
-            <a href="{{ route('detallefactura.show', $lectura->id) }}" class="btn btn-primary">Revisar</a>
-            <a href="{{ route('detallefactura.edit', $lectura->id) }}" class="btn btn-warning">Editar</a>
+            <a href="{{ route('lecturas.show', ['lectura' => $lectura->id]) }}" class="btn btn-primary">{{ __('Mostrar') }}</a>
+            <a href="{{ route('lecturas.edit', $lectura->id) }}" class="btn btn-secondary">{{ __('Editar') }}</a>
             </td> 
-        </tr>
+        </tr> 
         @php
         $total_costo += $lectura->costo;
         @endphp
