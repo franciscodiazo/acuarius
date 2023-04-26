@@ -41,6 +41,7 @@ Route::get('/backup', 'BackupController@index')->name('backup.index');
 Route::post('/backup/create', 'BackupController@create')->name('backup.create');
 Route::get('/backup/download', 'BackupController@download')->name('backup.download');
 */
-
+Route::resource('facturacion', 'FacturacionController')->except('facturacion');
+Route::get('/facturacion/crear', [FacturacionController::class, 'create'])->name('facturacion.create');
 
 });
