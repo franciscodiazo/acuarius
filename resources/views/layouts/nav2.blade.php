@@ -48,6 +48,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ route('facturacion.index') }}" class="nav-link{{ Request::is('facturacion') ? ' active' : '' }}">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                Facturacion
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ route('creditos.index') }}" class="nav-link{{ Request::is('creditos') ? ' active' : '' }}">
               <i class="nav-icon fas fa-tree"></i>
               <p>
@@ -63,4 +71,9 @@
               </p>
             </a>
           </li>
+
+          <a href="{{ route('pendientes.index') }}" class="btn btn-primary">Mostrar Pendientes</a>
+
+
+
         </ul>

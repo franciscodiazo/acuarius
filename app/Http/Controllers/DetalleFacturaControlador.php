@@ -74,7 +74,19 @@ class DetalleFacturaControlador extends Controller
 
     return view('detallefactura.index', compact('detallefactura'));
 }
+    public function pendientes()
+    {
+    $detallesPendientes = DetalleFactura::where('estado', 'pendiente')
+        ->orderBy('matricula', 'asc')
+        ->get();
 
+    $sumaValorTotal = $detallesPendientes->sum('valor_total');
+
+    view()->share('sumaValorTotal', $sumaValorTotal);
+
+    return view('pendientes.index', compact('detallesPendientes'));
+    
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -140,6 +152,15 @@ class DetalleFacturaControlador extends Controller
 
 
 // Validar si la lectura ya fue almacenada en la tabla detallefactura
+ $lecturaExistente = DetalleFactura::where('id_detalle_lectura', $lectura->id)
+   // ->where('matricula', $lectura->matricula)
+    ->where('ciclo', $lectura->ciclo)
+    ->first();
+
+if ($lecturaExistente) {
+    return redirect()->back()->with('success', 'La lectura con ID ' . $lectura->id . ' para la matrícula ' . $lectura->matricula . ' y ciclo ' . $lectura->ciclo . ' ya ha sido almacenada en la tabla detallefactura.');
+}
+/*
     $lecturaExistente = DetalleFactura::where('matricula', $lectura->matricula)
         ->where('ciclo', $lectura->ciclo)
         ->first();
@@ -151,7 +172,7 @@ class DetalleFacturaControlador extends Controller
 
         return redirect()->back()->with('success', 'Las lecturas de la matrícula para el ciclo ' . $lectura->ciclo . ' ya han sido almacenadas en la tabla detallefactura.');
 
-    }
+    }*/
 
 
         $detallefactura[] = $lectura;

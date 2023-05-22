@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <h1>detallefactura anteriores</h1>Total registros: {{ count($detalles) }}
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -53,7 +55,7 @@
                         </table>
                         <div class="row">
                             <div class="col-md-12">
-                                {{ $detalles->links() }}
+                                
                             </div>
                         </div>
                     </div>                                

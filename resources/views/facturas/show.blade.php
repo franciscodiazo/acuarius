@@ -2,161 +2,141 @@
 <html lang="en">
  <head>
 
-   @include('layouts.head')
-       <style>
-        @page {
-            margin: 0cm 0cm;
+      @include('layouts.head')
+      <script>
+  var fecha_actual = new Date(); // crea un objeto Date con la fecha y hora actuales
+  var dia = fecha_actual.getDate(); // obtiene el día del mes (1-31)
+  var mes = fecha_actual.getMonth() + 1; // obtiene el mes (0-11) y se le suma 1 para que sea 1-12
+  var anio = fecha_actual.getFullYear(); // obtiene el año con cuatro dígitos
+  
+  // construye la fecha en formato DD/MM/AAAA y la muestra en el elemento HTML correspondiente
+  document.getElementById("fecha_actual").innerHTML = dia + "/" + mes + "/" + anio;
+</script>
+      <style>
+         @page {
+            margin: 5mm 5mm;
             font-family: Arial;
+            size: 50mm 80mm; /* Tamaño de la página */
+         }
+         body {
+            margin: 0;
+            font-size: 8px; /* Tamaño de letra */
+         }
+         .wrapper {
+            width: 40mm;
+            height: 80mm;
+            overflow: hidden; /* Ajustar el contenido al tamaño de la página */
+         }
+         .invoice {
+            padding: 2mm;
+         }
+         .row {
+            margin: 0;
+         }
+         .col-6 {
+            width: 50%;
+            float: left;
+         }
+         .col-12 {
+            width: 100%;
+         }
+         .text-muted {
+            font-size: 6px;
+         }
+
+        * {
+            font-size: 12px;
+            font-family: 'Times New Roman';
         }
 
-        body {
-            margin: 3cm 2cm 2cm;
+        td,
+        th,
+        tr,
+        table {
+            border-top: 1px solid black;
+            border-collapse: collapse;
         }
 
-        header {
-            position: fixed;
-            top: 0cm;
-            left: 0cm;
-            right: 0cm;
-            height: 2cm;
-            background-color: #2a0927;
-            color: white;
+        td.producto,
+        th.producto {
+            width: 75px;
+            max-width: 75px;
+        }
+
+        td.cantidad,
+        th.cantidad {
+            width: 40px;
+            max-width: 40px;
+            word-break: break-all;
+        }
+
+        td.precio,
+        th.precio {
+            width: 40px;
+            max-width: 40px;
+            word-break: break-all;
+        }
+
+        .centrado {
             text-align: center;
-            line-height: 30px;
+            align-content: center;
         }
 
-        footer {
-            position: fixed;
-            bottom: 0cm;
-            left: 0cm;
-            right: 0cm;
-            height: 2cm;
-            background-color: #2a0927;
-            color: white;
-            text-align: center;
-            line-height: 35px;
+        .ticket {
+            width: 155px;
+            max-width: 155px;
         }
-    </style>
+
+        img {
+            max-width: inherit;
+            width: inherit;
+        }
+      </style>
  </head>
  <body>
- 
-<div class="wrapper">
+     <body>
+        <div class="ticket" align="center">
+            <p class="centrado">ACUAPALTRES<br>Cuota Familiar<br><span id="current-date"></span></p>
+            <p></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="3">DETALLES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CICLO</td>
+                        <td>{{ $detalles->ciclo }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Fecha Lectura</td>
+                        <td>{{ $detalles->ultima_fecha_lectura }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Lectura</td>
+                        <td>{{ $detalles->lectura_anterior }}</td>
+                        <td>{{ $detalles->lectura_actual }}</td>
+                    </tr>
+                    <tr>
+                         <th style="width:50%" >Subtotal:</th>
+                         <td align="right">${{ $detalles->valor_total }}</td>
+                    </tr>
+                    <tr>
+                        <th>Consumo</th>
+                        <td align="right">{{ $detalles->consumo }} M3</td>                    
+                    </tr>
+                    <tr>
+                    <th>Total:</th>
+                    <td align="right">${{ $detalles->valor_total }}</td>
+                    </tr>
 
-<section class="invoice">
-
-<div class="row">
-<div class="col-12">
-<h2 class="page-header">
-<i class="fas fa-globe"></i> Acueducto, Inc.
-<small class="float-right">Date: 2/10/2014</small>
-</h2>
-</div>
-
-</div>
-
-<div class="row invoice-info">
-<div class="col-sm-4 invoice-col">
-From
-<address>
-<strong>Admin, Inc.</strong><br>
-795 Folsom Ave, Suite 600<br>
-San Francisco, CA 94107<br>
-Phone: (804) 123-5432<br>
-Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b42454d446b4a47464a584a4e4e4f585f5e4f424405484446">[email&#160;protected]</a>
-</address>
-</div>
-
-<div class="col-sm-4 invoice-col">
-To
-<address>
-<strong>{{ $detalles->matricula }} Nombres Apellidos</strong><br>
-Dir<br>
-Sector<br>
-</address>
-</div>
-
-<div class="col-sm-4 invoice-col">
-<b>Invoice #007612</b><br>
-<br>
-<b>Order ID:</b> 4F3S8J<br>
-<b>Payment Due:</b> 2/22/2014<br>
-<b>Account:</b> 968-34567
-</div>
-
-</div>
-
-
-<div class="row">
-<div class="col-12 table-responsive">
-<table class="table table-striped">
-<thead>
-                <tr>
-                    <th>ID detalle lectura</th>
-                    <th>Ciclo</th>
-                    <th>Última fecha lectura</th>
-                    <th>Lectura anterior</th>
-                    <th>Lectura actual</th>
-                </tr>
-               
-</thead>
-<tbody>
-                <tr>
-                    <td>{{ $detalles->id_detalle_lectura }}</td>
-                    <td>{{ $detalles->ciclo }}</td>
-                    <td>{{ $detalles->ultima_fecha_lectura }}</td>
-                    <td>{{ $detalles->lectura_anterior }}</td>
-                    <td>{{ $detalles->lectura_actual }}</td>
-                    <td></td>
-                </tr>
-
-</tbody>
-</table>
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="col-6">
-<p class="lead">Payment Methods:</p>
-<img src="#" alt="Efectivo"> Efectivo
-<img src="#" alt="Banco"> Banco
-<img src="#" alt="Transferencia"> Transferencia
-<img src="#" alt="Paypal">
-<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-El acueducto rural es un proyecto de todos, cuidar el recurso más valioso es nuestro deber.
-</p>
-</div>
-
-<div class="col-6">
-<p class="lead">Amount Due 2/22/2014</p>
-<div class="table-responsive">
-<table class="table">
-<tr>
-<th>Tarifa Base:</th>
-<td align="right">$18.000</td>
-</tr>
-<tr>
-<th style="width:50%" >Subtotal:</th>
-<td align="right">${{ $detalles->valor_total }}</td>
-</tr>
-<tr>
-<th>Consumo</th>
-<td align="right">{{ $detalles->consumo }} M3</td>                    
-</tr>
-<tr>
-<th>Total:</th>
-<td align="right">${{ $detalles->valor_total }}</td>
-</tr>
-</table>
-</div>
-</div>
-
-</div>
-
-</section>
-
-</div>
+                </tbody>
+            </table>
+            <p class="centrado">¡GRACIAS POR APORTE!<br></p>
+        </div>
     @include('layouts.footer-scripts')
 </body>
 </html>

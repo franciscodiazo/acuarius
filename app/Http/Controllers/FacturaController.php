@@ -26,14 +26,25 @@ class FacturaController extends Controller
     public function index()
     {
     $detalles = DetalleFactura::join('suscriptores', 'detalle_factura.matricula', '=', 'suscriptores.matricula')
-                               ->select('detalle_factura.*', 'suscriptores.nombres', 'suscriptores.apellidos')
-                               ->with('subscriber')
-                               ->paginate(10);
-
-  //                             ->get();
+        ->select('detalle_factura.*', 'suscriptores.nombres', 'suscriptores.apellidos')
+        ->with('subscriber')
+        ->whereIn('detalle_factura.id_detalle_lectura', function ($query) {
+            $query->select(DB::raw('MAX(id_detalle_lectura)'))
+                ->from('detalle_factura')
+                ->groupBy('matricula');
+        })
+        ->get();
 
     return view('facturas.index', compact('detalles'));
+/*    $detalles = DetalleFactura::join('suscriptores', 'detalle_factura.matricula', '=', 'suscriptores.matricula')
+                               ->select('detalle_factura.*', 'suscriptores.nombres', 'suscriptores.apellidos')
+                               ->with('subscriber')
+                               //->paginate(10);
 
+                               ->get();
+
+    return view('facturas.index', compact('detalles'));
+*/
     }
 
     /*public function index()
@@ -108,7 +119,7 @@ class FacturaController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     *  
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -127,6 +138,9 @@ class FacturaController extends Controller
 
     // Crea una instancia de Dompdf
     $pdf = new Dompdf();
+
+    // Establece los parámetros de página para la impresora térmica
+//    $pdf->setPaper('40mm', '80mm'); // ancho: 40mm, alto: 80mm
 
     // Carga el contenido HTML que quieres imprimir
     $pdf->loadHtml($html);

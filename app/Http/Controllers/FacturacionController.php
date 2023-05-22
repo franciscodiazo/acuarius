@@ -1,11 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
+use Dompdf\Dompdf;
 
 use App\Models\Facturacion;
 use App\Models\Factura;
 use App\Models\DetalleFactura;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\FacturacionExport;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
+
 
 class FacturacionController extends Controller
 {
@@ -16,8 +25,18 @@ class FacturacionController extends Controller
      */
 public function index()
     {
-        $detallefactura = DetalleFactura::all();
-        return view('facturacion.index', compact('detallefactura'));
+       $detallefactura = DetalleFactura::join('suscriptores', 'detalle_factura.matricula', '=', 'suscriptores.matricula')
+        ->select('detalle_factura.*', 'suscriptores.nombres', 'suscriptores.apellidos')
+        ->with('subscriber')
+        ->whereIn('detalle_factura.id_detalle_lectura', function ($query) {
+            $query->select(DB::raw('MAX(id_detalle_lectura)'))
+                ->from('detalle_factura')
+                ->groupBy('matricula');
+        })
+        ->get();
+
+    return view('facturacion.index', compact('detallefactura'));
+
     }
 
     public function create()
@@ -41,6 +60,7 @@ public function index()
     // Si no existe, crear la nueva factura
     $monto_total = $request->monto_total;
     $estado = $monto_total == $request->monto_total ? 'pagado' : 'pendiente';
+        $detalle = json_decode($request->detalle, true);
 
     $factura = new Facturacion([
         'numero' => $request->numero,
@@ -109,4 +129,69 @@ public function index()
                      ->with('success', 'Detalle de factura eliminado exitosamente.');
 
     }
+
+        public function ticket($matricula)
+{
+   // Obtener el detalle de factura correspondiente al matricula
+    //$detalles = Facturacion::find($matricula);
+    $detalles = Facturacion::where('matricula', $matricula)->first();
+
+    // Renderizar la vista show.blade.php como HTML
+    $html = view('facturas.ticket', compact('detalles'))->render();
+
+    // Crea una instancia de Dompdf
+    $pdf = new Dompdf();
+
+    // Establece los parámetros de página para la impresora térmica
+//    $pdf->setPaper('40mm', '80mm'); // ancho: 40mm, alto: 80mm
+
+    // Carga el contenido HTML que quieres imprimir
+    $pdf->loadHtml($html);
+
+    // Renderiza el PDF
+    $pdf->render();
+
+    // Devuelve una vista que muestre el PDF
+    return view('facturas.imprimir', ['pdf' => $pdf->output()]); 
+}
+
+        public function pdf($matricula)
+{
+/*    $detalles = Facturacion::where('matricula', $matricula)->first();
+    $html = view('facturacion.pdf', compact('detalles'))->render();
+    $pdf = new Dompdf();
+    $pdf->loadHtml($html);
+    $pdf->render();
+
+    return view('facturacion.pdf', ['pdf' => $pdf->output()]); 
+*/
+     // Obtener el detalle de factura correspondiente a la matricula
+    $detalles = Facturacion::where('matricula', $matricula)->first();
+
+    // Verificar si se encontraron los detalles de facturación
+    if ($detalles) {
+        // Renderizar la vista pdf.blade.php como HTML
+        $html = view('facturacion.pdf', compact('detalles'))->render();
+
+        // Crear una instancia de Dompdf
+        $pdf = new Dompdf();
+
+        // Cargar el contenido HTML que quieres imprimir
+        $pdf->loadHtml($html);
+
+        // Renderizar el PDF
+        $pdf->render();
+
+        // Devolver una respuesta con el PDF descargable
+    //    return $pdf->stream('facturacion.pdf');
+//vista del pdf antes de imprimir
+        return view('facturacion.pdf', compact('detalles'));
+
+    } else {
+        // Si no se encontraron los detalles de facturación, puedes redirigir a una página de error o mostrar un mensaje
+        return redirect()->back()->with('error', 'No se encontraron los detalles de facturación.');
+    }
+}
+
+
 }

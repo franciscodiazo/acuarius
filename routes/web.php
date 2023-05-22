@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuscriptorController;
-
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,9 @@ Route::resource('matriculas', 'MatriculaController');
 Route::resource('tarifas', 'TarifaController');
 Route::resource('detallelectura', 'DetalleLecturaController');
 Route::resource('detallefactura', 'DetalleFacturaControlador');
+Route::get('pendientes', 'DetalleFacturaControlador@pendientes')->name('pendientes.index');
+
+
 Route::resource('detalles', 'FacturaController')->except('show');
 Route::get('/detalles/{id}', 'FacturaController@show')->name('facturas.show');
 //Route::get('facturas/pdf/{id}', [FacturaController::class, 'pdf'])->name('facturas.pdf');
@@ -36,12 +40,24 @@ Route::get('creditos/{id}', 'CreditosController@show')->name('creditos.show');
 Route::resource('pagos', 'PagosController')->except('pagos');
 Route::get('suscriptores/export', 'SuscriptorController@export')->name('suscriptores.export');
 Route::get('/suscriptores/exportar', [SuscriptorController::class, 'export'])->name('suscriptores.export');
-/*
-Route::get('/backup', 'BackupController@index')->name('backup.index');
-Route::post('/backup/create', 'BackupController@create')->name('backup.create');
-Route::get('/backup/download', 'BackupController@download')->name('backup.download');
-*/
+
 Route::resource('facturacion', 'FacturacionController')->except('facturacion');
 Route::get('/facturacion/crear', [FacturacionController::class, 'create'])->name('facturacion.create');
+
+Route::get('/facturacion/recibo', 'FacturacionController@recibo')->name('facturacion.recibo');
+Route::get('/facturas/ticket/{matricula}', 'FacturacionController@ticket')->name('facturas.ticket');
+
+Route::get('/facturacion/pdf/{matricula}', 'FacturacionController@pdf')->name('facturacion.pdf');
+
+
+//RESPALDO
+//Route::get('/backup/download', 'BackupController@download')->name('backup.download');
+//Route::get('/backup', '\Spatie\Backup\BackupController@index')->middleware('auth');
+//Route::get('/backup', '\Spatie\Backup\BackupController@index');
+//Route::get('/backup', 'BackupController@backup')->name('backup');
+
+//DESCARGA EXCEL
+//Route::get('/facturacion/export', [FacturacionController::class, 'export'])->name('facturacion.export');
+
 
 });

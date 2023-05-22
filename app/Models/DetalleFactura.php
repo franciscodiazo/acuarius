@@ -20,6 +20,7 @@ class DetalleFactura extends Model
         'lectura_actual',
         'consumo',
         'valor_total',
+        'estado',
         'matricula',
     ];
 

@@ -69,7 +69,7 @@ Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="
 <div class="col-sm-4 invoice-col">
 To
 <address>
-<strong>{{ $detalles->matricula }} Nombres Apellidos</strong><br>
+<strong>{{ $detalles->matricula }} Nombr Apellidos</strong><br>
 Dir<br>
 Sector<br>
 </address>

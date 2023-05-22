@@ -27,7 +27,7 @@ public function index()
                 ->from('lecturas')
                 ->groupBy('matricula');
         })
-        ->orderBy('fecha_lectura', 'desc')
+        ->orderBy('id', 'asc')
         ->paginate(50);
 
     $lecturas = [];
