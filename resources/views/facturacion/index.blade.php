@@ -58,7 +58,7 @@ $total_costo = 0;
             <input type="hidden" name="estado" value="facturada">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reciboModal" data-matricula="{{ $lectura->matricula }}" data-total="{{ $lectura->valor_total }}">Ver recibo</button>
             <div>
-            <a href="#" class="btn btn-sm btn-primary d-inline-block" onclick="window.open('{{ route('facturacion.pdf', ['matricula' => $lectura->matricula]) }}', '_blank', 'location=0, menubar=0, status=0, titlebar=0, toolbar=0')"> PDF</a></div>
+            <a href="#" class="btn btn-sm btn-primary d-inline-block" onclick="window.open('{{ route('facturacion.pdf', ['matricula' => $lectura->matricula]) }}', '_blank', 'location=0, menubar=0, status=0, titlebar=0, toolbar=0')"> PDF</a></div>           
 
           @else
             <input type="hidden" name="estado" value="pendiente">

@@ -27,4 +27,4 @@
             </tbody>
         </table>
     @endif
-@endsection
+@endsection|
