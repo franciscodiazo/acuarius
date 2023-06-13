@@ -43,19 +43,19 @@ class PagosController extends Controller
     {
 
      $request->validate([
-        'id_credito' => 'required|exists:creditos,id',
+        'credito_id' => 'required|exists:creditos,id',
         'fecha_pago' => 'required|date',
         'monto' => 'required|numeric|min:0',
     ]);
 
-    $credito = Credito::find($request->id_credito);
+    $credito = Credito::find($request->credito_id);
 
     if ($credito->saldo <= 0) {
-        return redirect()->route('creditos.index', $request->id_credito)->with('warning', 'El crédito ya está al día.');
+        return redirect()->route('creditos.index', $request->credito_id)->with('warning', 'El crédito ya está al día.');
     }
 
     $pago = Pago::create([
-        'id_credito' => $request->id_credito,
+        'credito_id' => $request->credito_id,
         'fecha_pago' => $request->fecha_pago,
         'monto' => $request->monto,
     ]);
@@ -67,7 +67,7 @@ class PagosController extends Controller
     $credito->fecha_proximo_pago = Carbon::createFromFormat('Y-m-d', $credito->fecha_proximo_pago)->addMonth()->toDateString();
     $credito->save();
 
-    return redirect()->route('creditos.show', $request->id_credito)->with('success', 'Pago registrado correctamente.');
+    return redirect()->route('creditos.show', $request->credito_id)->with('success', 'Pago registrado correctamente.');
 }
 
     /**

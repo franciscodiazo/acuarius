@@ -29,6 +29,8 @@ class CreditosController extends Controller
     {
         $credito = $request->validate([
             'matricula' => 'required',
+            'acuerdo' => 'required',
+            'detalle' => 'required',
             'fecha_inicio' => 'required|date',
             'fecha_final' => 'required|date',
             'monto' => 'required|integer',
@@ -55,6 +57,8 @@ class CreditosController extends Controller
     // Validate the form input
     $validatedData = $request->validate([
         'matricula' => 'required|string|max:255',
+        'acuerdo' => 'required',
+        'detalle' => 'required',        
         'fecha_inicio' => 'required|date',
         'fecha_final' => 'required|date|after:fecha_inicio',
         'monto' => 'required|numeric|min:0',
@@ -67,6 +71,8 @@ class CreditosController extends Controller
 
     // Update the Credito instance with the form data
     $credito->matricula = $validatedData['matricula'];
+    $credito->acuerdo = $validatedData['acuerdo'];
+    $credito->detalle = $validatedData['detalle'];
     $credito->fecha_inicio = $fecha_inicio;
     $credito->fecha_final = $validatedData['fecha_final'];
     $credito->monto = $validatedData['monto'];
@@ -87,11 +93,18 @@ public function show($id)
     return view('creditos.show', compact('credito'));
 }
 
-
-    public function destroy(Credito $credito)
+        public function destroy($id)
     {
-        $credito->delete();
-
-        return redirect()->route('creditos.index')->with('success', 'Crédito eliminado correctamente.');
+ $credito = Credito::find($id);
+    
+    if ($credito->pagos()->exists()) {
+        return redirect()->route('creditos.index')->with('success', 'No se puede eliminar el crédito debido a cuotas pagadas.');
     }
+    
+    $credito->delete();
+    
+    return redirect()->route('creditos.index')->with('success', 'Crédito eliminado correctamente.');
+
+    }
+
 }

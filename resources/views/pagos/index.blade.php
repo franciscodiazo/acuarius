@@ -12,21 +12,22 @@
                             @csrf
 
                             <div class="form-group row">
-                                <label for="id_credito" class="col-md-4 col-form-label text-md-right">{{ __('Crédito') }}</label>
+                                <label for="credito_id" class="col-md-4 col-form-label text-md-right">{{ __('Crédito') }}</label>
 
                                 <div class="col-md-6">
-                                    <select class="form-control" name="id_credito">
-                                        @php
-                                            $default_credito = isset($credito_id) ? $credito_id : $creditos->first()->id;
-                                        @endphp
-                                        @foreach($creditos as $c)
-                                            <option value="{{ $c->id }}" {{ $default_credito == $c->id ? 'selected' : '' }}>
-                                                {{ $c->id }} - {{ $c->matricula }}
-                                            </option>
-                                        @endforeach
+                                    <select class="form-control" name="credito_id">
+                                    @php
+                                        $default_credito = request()->input('credito_id') ?: ($creditos->first() ? $creditos->first()->id : null);
+                                    @endphp
+
+                                    @foreach($creditos as $c)
+                                        <option value="{{ $c->id }}" {{ $default_credito == $c->id ? 'selected' : '' }}>
+                                            {{ $c->id }} | {{ $c->matricula }}
+                                        </option>
+                                    @endforeach
                                     </select>
 
-                                    @error('id_credito')
+                                    @error('credito_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

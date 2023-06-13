@@ -10,7 +10,7 @@ class Pago extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_credito',
+        'credito_id',
         'fecha_pago',
         'monto',
     ];

@@ -30,10 +30,7 @@ Route::get('pendientes', 'DetalleFacturaControlador@pendientes')->name('pendient
 
 Route::resource('detalles', 'FacturaController')->except('show');
 Route::get('/detalles/{id}', 'FacturaController@show')->name('facturas.show');
-//Route::get('facturas/pdf/{id}', [FacturaController::class, 'pdf'])->name('facturas.pdf');
 Route::get('/imprimir', 'FacturaController@imprimirPdf');
-//Route::get('/facturas/{id}/imprimir', 'FacturaController@imprimirPdf');
-Route::get('/facturas/imprimir/{id}', 'FacturaController@imprimirPdf')->name('facturas.imprimir');
 Route::resource('creditos', 'CreditosController')->except('creditos');
 Route::get('creditos/{id}', 'CreditosController@show')->name('creditos.show');
 
@@ -41,13 +38,18 @@ Route::resource('pagos', 'PagosController')->except('pagos');
 Route::get('suscriptores/export', 'SuscriptorController@export')->name('suscriptores.export');
 Route::get('/suscriptores/exportar', [SuscriptorController::class, 'export'])->name('suscriptores.export');
 
+//FACTURACIÓN
+Route::get('/facturacion/recibo', 'FacturacionController@recibo')->name('facturacion.recibo');
 Route::resource('facturacion', 'FacturacionController')->except('facturacion');
 Route::get('/facturacion/crear', [FacturacionController::class, 'create'])->name('facturacion.create');
-
-Route::get('/facturacion/recibo', 'FacturacionController@recibo')->name('facturacion.recibo');
-Route::get('/facturas/ticket/{matricula}', 'FacturacionController@ticket')->name('facturas.ticket');
-
 Route::get('/facturacion/pdf/{matricula}', 'FacturacionController@pdf')->name('facturacion.pdf');
+
+//FACTURAS
+Route::get('/facturas/ticket/{matricula}', 'FacturacionController@ticket')->name('facturas.ticket');
+Route::get('/facturas/imp/{matricula}', 'FacturacionController@imp')->name('facturas.imp');
+//Route::get('/facturas/{id}/imprimir', 'FacturaController@imprimirPdf');
+Route::get('/facturas/imprimir/{id}', 'FacturaController@imprimirPdf')->name('facturas.imprimir');
+//Route::get('facturas/pdf/{id}', [FacturaController::class, 'pdf'])->name('facturas.pdf');
 
 
 //RESPALDO

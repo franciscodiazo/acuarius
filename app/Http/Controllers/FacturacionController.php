@@ -5,6 +5,8 @@ use Dompdf\Dompdf;
 
 use App\Models\Facturacion;
 use App\Models\Factura;
+use App\Models\Tarifa;
+use App\Models\Credito;
 use App\Models\DetalleFactura;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -193,5 +195,42 @@ public function index()
     }
 }
 
+    public function imp($matricula)
+    {
+
+    $detalles = DetalleFactura::join('suscriptores', 'detalle_factura.matricula', '=', 'suscriptores.matricula')
+        ->select('detalle_factura.*', 'suscriptores.*')
+        ->with('subscriber')
+        ->whereIn('detalle_factura.id_detalle_lectura', function ($query) {
+            $query->select(DB::raw('MAX(id_detalle_lectura)'))
+                ->from('detalle_factura')
+                ->groupBy('matricula');
+        })
+        ->where('detalle_factura.matricula', $matricula)
+        ->first();
+
+    $tarifas = Tarifa::all(); // Consulta todos los registros de la tabla 'tarifas'
+
+    $creditos = Credito::where('matricula', $matricula)->get(); // Consulta los créditos relacionados con la matrícula
+
+    $ultimos_detalles = DetalleFactura::where('matricula', $matricula)
+        ->orderByDesc('id_detalle_lectura')
+        ->take(3)
+        ->get(); // Obtén los últimos tres registros de detalle_factura para la misma matrícula
+
+    $estado_detalle_factura = DetalleFactura::where('matricula', $matricula)
+        ->orderByDesc('id_detalle_lectura')
+        ->value('estado'); // Obtén el estado de detalle_factura para la misma matrícula
+
+    $total_facturas_pendientes = DetalleFactura::where('matricula', $matricula)
+        ->where('estado', 'pendiente')
+        ->sum('valor_total'); // Suma el monto de todas las facturas pendientes para la misma matrícula
+
+
+    return view('facturas.imp', compact('detalles', 'tarifas', 'creditos', 'ultimos_detalles', 'estado_detalle_factura', 'total_facturas_pendientes'))->render();
+
+    }
+
 
 }
+

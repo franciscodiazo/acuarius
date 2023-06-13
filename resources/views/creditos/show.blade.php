@@ -12,6 +12,14 @@
                     <input type="text" class="form-control" name="matricula" value="{{ $credito->matricula }}" disabled>
                 </div>
                 <div class="form-group">
+                    <label for="matricula">acuerdo</label>
+                    <input type="text" class="form-control" name="acuerdo" value="{{ $credito->acuerdo }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="matricula">detalle</label>
+                    <input type="text" class="form-control" name="detalle" value="{{ $credito->detalle }}" disabled>
+                </div>
+                <div class="form-group">
                     <label for="fecha_inicio">Fecha de inicio</label>
                     <input type="text" class="form-control" name="fecha_inicio" value="{{ isset($credito->fecha_inicio) ? \Carbon\Carbon::parse($credito->fecha_inicio)->format('d/m/Y') : '' }}" disabled>
 

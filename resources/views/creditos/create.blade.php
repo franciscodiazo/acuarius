@@ -37,6 +37,32 @@
                                     @enderror
                                 </div>
                             </div>
+                        <div class="form-group row">
+                            <label for="acuerdo" class="col-md-4 col-form-label text-md-right">{{ __('Acuerdo') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="acuerdo" type="text" class="form-control @error('acuerdo') is-invalid @enderror" name="acuerdo" value="{{ old('acuerdo') }}" required autocomplete="acuerdo" autofocus>
+
+                                @error('acuerdo')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="detalle" class="col-md-4 col-form-label text-md-right">{{ __('Detalle') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="detalle" type="text" class="form-control @error('detalle') is-invalid @enderror" name="detalle" value="{{ old('detalle') }}" required autocomplete="detalle" autofocus>
+
+                                @error('detalle')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                             <div class="form-group row">
                                 <label for="fecha_inicio" class="col-md-4 col-form-label text-md-right">{{ __('Fecha de inicio') }}</label>

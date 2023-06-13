@@ -23,6 +23,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Matrícula</th>
+                        <th>Acuerdo</th>
+                        <th>Detalle</th>
                         <th>Fecha Inicio</th>
                         <th>Fecha Final</th>
                         <th>Monto</th>
@@ -39,6 +41,8 @@
                         <tr>
                             <td>{{ $cred->id }}</td>
                             <td>{{ $cred->matricula }}</td>
+                            <td>{{ $cred->acuerdo }}</td>
+                            <td>{{ $cred->detalle }}</td>
                             <td>{{ $cred->fecha_inicio }}</td>
                             <td>{{ $cred->fecha_final }}</td>
                             <td>{{ $cred->monto }}</td>
@@ -58,7 +62,7 @@
 
                                 </div>
                             </td>
-                            <td><div><a href="{{ route('pagos.index', ['id_credito' => $cred->id]) }}" class="btn btn-primary">Pagar</a></div></td>
+                            <td><div><a href="{{ route('pagos.index', ['credito_id' => $cred->id]) }}" class="btn btn-primary">Pagar</a></div></td>
                             
                         </tr>
                     @endforeach

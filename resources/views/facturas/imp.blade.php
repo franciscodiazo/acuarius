@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Título de la página</title>
+  <title>Cuota Familiar</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css"> <!-- Enlace a una hoja de estilos CSS externa -->
@@ -159,19 +159,37 @@
         <legend>Datos del Suscriptor</legend>
         <p><b>SUSCRIPTOR:</b> {{ $detalles->matricula }}</p>
         <p><b>REF:</b> {{ $detalles->id }}</p>
-        <p><b>Fecha de Emisión:</b> {{ $detalles->fecha_emision }}</p>    
-        <p><b>Ciclo:</b></p>      
+        <p><b>Fecha de Emisión:</b> {{ $detalles->ultima_fecha_lectura }}</p>    
+        <p><b>Pago Oportuno:</b>  {{ date('Y-m-d', strtotime($detalles->ultima_fecha_lectura . '+20 days')) }}</p>
+        <p><b>Ciclo:</b>{{ $detalles->ciclo }}</p>      
         </fieldset>
       </div>
       <div class="component">
         <!-- Componente 2 con los detalles de facturación -->
         <fieldset class="modern-fieldset">
         <legend>Detalles de Facturación</legend>
-        <p><b>Cuota Familiar #:</b> {{ $detalles->numero }}</p>
-        <p><b>Pago Oportuno:</b> {{ $detalles->fecha_vencimiento }}</p>
-        <p><b>Cuota #:</b> {{ $detalles->id_detalle_factura }}</p><div align="center"><b> Total Cuota</b></div>
-         <div align="center" style="border: solid #A52A2A 3px; border-radius: 50%;"><b> ${{ number_format($detalles->monto_total, 2, ',', '.') }}</b></div>
-         <div><b>Cretidos y otros:</b> ${{ number_format($detalles->monto_total, 2, ',', '.') }}</b></div><div align="center">¡Sí proteges el Agua Proteges la Vida!</div>
+        <p><b>Cuota Familiar #:</b> {{ $detalles->id }}</p>
+        <div align="center"><b> Total Cuota</b></div>
+         <div align="center" style="border: solid #A52A2A 3px; border-radius: 50%;"><b> ${{ number_format($detalles->valor_total, 2, ',', '.') }}</b></div>
+         <div align="center">
+          <b>Cretidos y otros:</b><p> <div align="left"> Cuotas: <p align="right"> ${{ number_format($total_facturas_pendientes, 2, ',', '.') }}</p></div></p>
+          <p>
+          @php
+              $totalSaldoCredito = 0;
+          @endphp
+
+          @foreach ($creditos as $credito)
+              @if ($credito->saldo > 0)
+                  @php
+                      $totalSaldoCredito += $credito->saldo;
+                  @endphp
+                  <!-- Agrega más campos de crédito según tus necesidades -->
+              @endif
+          @endforeach
+
+          <div align="left">Créditos: <p align="right">${{ number_format($totalSaldoCredito, 2, ',', '.') }}</p></div>
+          <div align="left"><b>Total pendientes:</b> <p align="right">${{ number_format(($totalSaldoCredito + $total_facturas_pendientes), 2, ',', '.') }}</p></div>                
+          </p></div>
         </fieldset>
       </div>
     </div>
@@ -179,6 +197,35 @@
 
   <main>
     <!-- Contenido principal -->
+<section>
+  <h3 align="center"><div align="center">¡Sí proteges el Agua Proteges la Vida!</div></h3>
+  <div class="fieldset-container">
+    <fieldset class="modern-fieldset">
+      @foreach ($tarifas as $tarifa)
+      <legend>Información de Tarifa</legend>
+      <p><b>Tarifa: </b><span>${{ $tarifa->tarifa_base }}</span></p>
+      <p><b>Precio por M3: </b><span>${{ $tarifa->tarifa_recargo }}</span></p>
+
+    @endforeach
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Lectura Actual</legend>
+      <p><span>{{ $detalles->lectura_actual }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Lectura Anterior</legend>
+      <p><span>{{ $detalles->lectura_anterior }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Consumo</legend>
+      <p><b>M3: </b><span>{{ $detalles->consumo }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Total a Pagar</legend>
+      <p><span>${{ number_format($detalles->valor_total, 2, ',', '.') }}</span></p>
+    </fieldset>
+  </div>
+</section>    
 <section>
 
   <div class="fieldset-container">
@@ -191,16 +238,12 @@
             <th colspan="2" align="center">Descripción</th>
           </tr>
           <tr>
-            <td>Fecha Emisión</td>
-            <td>{{ $detalles->fecha_emision }}</td>
-          </tr>
-          <tr>
             <td>Lectura Actual</td>
-            <td>{{ $detalles->lectura_actual }}</td>
+            <td align="right">{{ $detalles->lectura_actual }}</td>
           </tr>
           <tr>
             <td>Lectura Anterior</td>
-            <td>{{ $detalles->lectura_anterior }}</td>
+            <td align="right">{{ $detalles->lectura_anterior }}</td>
           </tr>
           <tr>
             <td>Total Otros Créditos</td>
@@ -208,7 +251,7 @@
           </tr>
           <tr>
             <td>Total Cuota</td>
-            <td align="right">{{ $detalles->total_pagar }}:  ${{ number_format($detalles->monto_total, 2, ',', '.') }}</td> 
+            <td align="right">${{ number_format($detalles->valor_total, 2, ',', '.') }}</td> 
       </b>
 
  </div></td>
@@ -219,54 +262,52 @@
   </div>
 </section>
 <section>
-  <h4>Sección 2</h4>
   <div class="fieldset-container">
-    <fieldset class="modern-fieldset">
-      <legend>Información de Tarifa</legend>
-      <p>Tarifa: <span>{{ $detalles->tarifa }}</span></p>
-      <p>Precio por kWh: <span>{{ $detalles->precio_kwh }}</span></p>
+    <fieldset class="modern-fieldset footer-fieldset">
+      <legend> Pendientes</legend>
+@php
+    $total = 0;
+@endphp
+
+@foreach ($ultimos_detalles as $detalle)
+    @if ($detalle->estado == 'pendiente' && $detalle->valor_total > 0)
+        @php
+            $total += $detalle->valor_total;
+        @endphp
+        <p><b>Estado: </b>{{ $detalle->estado }} {{ $detalle->valor_total }} Ciclo: {{ $detalle->ciclo }}</p>
+    @endif
+@endforeach
+
+<p>Total: {{ $total }}</p>
+
     </fieldset>
-    <fieldset class="modern-fieldset">
-      <legend>Lectura Actual</legend>
-      <p>Lectura: <span>{{ $detalles->lectura_actual }}</span></p>
+    <fieldset class="modern-fieldset footer-fieldset">
+      <legend> Ultimos Consumos</legend>
+      @foreach ($ultimos_detalles as $detalle)
+          <p><b>Ciclo:</b> {{ $detalle->ciclo }} <b>Consumo:</b> {{ $detalle->consumo }}</p><progress value="{{ $detalle->consumo }}" max="1000"></progress>
+          <!-- Agrega más campos de detalle según tus necesidades -->
+      @endforeach
+
     </fieldset>
-    <fieldset class="modern-fieldset">
-      <legend>Lectura Anterior</legend>
-      <p>Lectura: <span>{{ $detalles->lectura_anterior }}</span></p>
-    </fieldset>
-    <fieldset class="modern-fieldset">
-      <legend>Consumo</legend>
-      <p>Total kWh Consumidos: <span>{{ $detalles->total_consumo }}</span></p>
-    </fieldset>
-    <fieldset class="modern-fieldset">
-      <legend>Resumen de Total a Pagar</legend>
-      <p>Total a Pagar: <span>{{ $detalles->total_pagar }}</span></p>
-    </fieldset>
-  </div>
-</section><section>
-  <h4>Sección 2</h4>
-  <div class="fieldset-container">
-    <fieldset class="modern-fieldset">
-      <legend>Información de Tarifa</legend>
-      <p>Tarifa: <span>{{ $detalles->tarifa }}</span></p>
-      <p>Precio por kWh: <span>{{ $detalles->precio_kwh }}</span></p>
-    </fieldset>
-    <fieldset class="modern-fieldset">
-      <legend>Lectura Actual</legend>
-      <p>Lectura: <span>{{ $detalles->lectura_actual }}</span></p>
-    </fieldset>
-    <fieldset class="modern-fieldset">
-      <legend>Lectura Anterior</legend>
-      <p>Lectura: <span>{{ $detalles->lectura_anterior }}</span></p>
-    </fieldset>
-    <fieldset class="modern-fieldset">
-      <legend>Consumo</legend>
-      <p>Total kWh Consumidos: <span>{{ $detalles->total_consumo }}</span></p>
-    </fieldset>
-    <fieldset class="modern-fieldset">
-      <legend>Resumen de Total a Pagar</legend>
-      <p>Total a Pagar: <span>{{ $detalles->total_pagar }}</span></p>
-    </fieldset>
+    <fieldset class="modern-fieldset footer-fieldset">
+      <legend>Creditos</legend>
+    @php
+        $totalSaldoCredito = 0;
+    @endphp
+
+    @foreach ($creditos as $credito)
+        <div class="credito">
+           @if ($credito->saldo > 0)
+            @php
+                $totalSaldoCredito += $credito->saldo;
+            @endphp
+            <p><b>Crédito {{ $credito->acuerdo }}:</b> ${{ $credito->saldo }}</p>
+            <!-- Agrega más campos de crédito según tus necesidades -->
+           @endif
+        </div>
+    @endforeach
+
+    <p>Total Saldo de Crédito: ${{ $totalSaldoCredito }}</p>    </fieldset>
   </div>
 </section>
 
@@ -280,25 +321,33 @@
   <div class="fieldset-container">
     <!-- Tus otros fieldsets aquí -->
     <fieldset class="modern-fieldset footer-fieldset">
-      <legend>Pie de página</legend>
+      <legend>Copia</legend>
       <table>
       <tr>
         <td rowspan="2">
           <img src="{{ asset('img/acuapaltres.png') }}" alt="Acuapaltres" width="50" height="auto">
         </td>
         <td>
-          <strong>Nombre del Suscriptor:</strong> Juan Pérez
+          <strong>Nombre del Suscriptor:</strong> {{ $detalles->nombres }} {{ $detalles->apellidos }}          
+          <p><strong>Matrícula:</strong> {{ $detalles->matricula }} 
+          <p><strong>Dirección:</strong> {{ $detalles->direccion_residencia }} {{ $detalles->sector }}
         </td>
       </tr>
       <tr>
         <td>
-          <strong>Fecha de Factura:</strong> 10 de junio de 2023
+          <strong>Paguese antes de:</strong> {{ date('Y-m-d', strtotime($detalles->ultima_fecha_lectura . '+20 days')) }}
+        </td>
+        <td align="right">
+          <strong>Total del Consumo:</strong>{{ $detalles->consumo }} <br>
         </td>
       </tr>
       <tr>
-        <td colspan="2">
-          <strong>Total del Consumo:</strong> $150.00<br>
-          <strong>Total a Pagar:</strong> $100.00
+        <td> 
+        </td>
+        <td> 
+        </td>
+        <td>
+          <div align="center" style="border: solid #A52A2A 3px; border-radius: 50%;"><strong>Total a Pagar:</strong> ${{ number_format($detalles->valor_total, 2, ',', '.') }}</div>
         </td>
       </tr>
     </table>

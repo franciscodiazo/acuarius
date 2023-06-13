@@ -16,6 +16,8 @@ class CreateCreditosTable extends Migration
         Schema::create('creditos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('matricula');
+            $table->string('acuerdo');
+            $table->string('detalle');
             $table->date('fecha_inicio'); 
             $table->date('fecha_final');
             $table->integer('monto');

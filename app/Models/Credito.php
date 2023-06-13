@@ -11,15 +11,19 @@ class Credito extends Model
 
     protected $fillable = [
         'matricula',
+        'acuerdo',
+        'detalle',
         'fecha_inicio',
         'fecha_final',
+        'acuerdo',
+        'detalle',
         'monto',
         'tasa_interes',
         'plazo_meses',
         'fecha_proximo_pago',
         'saldo',
     ];
-
+ 
     public function suscriptor()
     {
         return $this->belongsTo(Suscriptor::class, 'matricula');
@@ -27,7 +31,7 @@ class Credito extends Model
 
     public function pagos()
     {
-        return $this->hasMany(Pago::class, 'id_credito');
+        return $this->hasMany(Pago::class, 'credito_id');
     }
 
    public function credito()

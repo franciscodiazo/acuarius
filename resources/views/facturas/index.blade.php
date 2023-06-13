@@ -40,13 +40,15 @@
                                         <td>{{ $detalleFactura->valor_total }}</td>
                                         <td> 
                                             <div>
-                                                <a href="#" class="btn btn-sm btn-info d-inline-block" onclick="window.open('{{ route('facturas.show', $detalleFactura->id) }}', 'detalleFactura', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=720'); return false;">Detalle</a>
+                                                <a href="#" class="btn btn-sm btn-info d-inline-block" onclick="window.open('{{ route('facturas.show', $detalleFactura->id) }}', 'detalleFactura', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1024,height=720'); return false;">Detalles</a>
                                             </div>
                                         </td>
                                         <td> 
                                             <div>
                                                 <a href="#" class="btn btn-sm btn-primary d-inline-block" onclick="window.open('{{ route('facturas.imprimir', ['id' => $detalleFactura->id]) }}', '_blank', 'location=0, menubar=0, status=0, titlebar=0, toolbar=0')"> PDF</a>
                                             </div>
+                                                <a href="#" class="btn btn-sm btn-primary d-inline-block" onclick="window.open('{{ route('facturas.imp', ['matricula' => $detalleFactura->matricula]) }}', '_blank', 'location=0, menubar=0, status=0, titlebar=0, toolbar=0')"> Imp</a></div>           
+
                                         </td>
                                     </tr>
                                 @endforeach

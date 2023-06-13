@@ -1,442 +1,316 @@
 <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Título de la página</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
- <html>
-  <head>
-   <title></title>
+  <link rel="stylesheet" href="styles.css"> <!-- Enlace a una hoja de estilos CSS externa -->
+  <style>
+    /* Estilos CSS internos */
+    @media print {
+      @page {
+        margin: 1cm;
+        size: letter;
+      }
+    }
 
-<style>
-body {
-  color: #000;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-}
+    body {
+      font-family: "Roboto", Arial, sans-serif;
+      font-size: 12px;
 
-header {
-    color: black;
-    background-color: #ffffff;
-    height: 100px;
-    width: 95%;
+      margin: 2;
+      padding: 2;
+      height: 24.94cm; /* 27.94cm es el tamaño de una página carta en centímetros */
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex; /* Mostrar los elementos del encabezado en línea */
+      align-items: center; /* Centrar verticalmente los elementos del encabezado */
+    }
+
+    .header-container {
+      display: flex; /* Mostrar las cajas en línea */
+      width: 100%; /* Ancho completo */
+    }
+
+    .logo,
+    .component {
+      margin-right: 1cm; /* Espacio de 1 centímetro entre las cajas */
+      flex: 1; /* Distribución equitativa del espacio disponible */
+    }
+
+    main {
+      flex-grow: 1; /* Hacer que el contenido principal ocupe todo el espacio disponible */
+    }
+
+    footer {
+      margin-top: auto; /* Empujar el footer hacia la parte inferior de la página */
+      padding: 0cm; /* Espaciado interno de 1 centímetro */
+      background-color: #f2f2f2; /* Color de fondo del footer */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+    }
+
+    table th {
+      background-color: #f2f2f2;
+      color: #333;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    table td {
+      padding: 10px;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+      background-color: #e6e6e6;
+    }
     
-}
+    .content {
+      overflow-x: auto; /* Barra de desplazamiento horizontal */
+      max-width: 100%; /* Ancho máximo para permitir desplazamiento */
+    }
 
-footer {
-    color: #000;
-    background-color: #ffffff;
-    width: 100%;
-    height: 200px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-#rcorners1 {
-  border-radius: 10px;
-  background: #73AD21;
-  border: 1px solid #73AD21;
-  padding: 20px; 
-}
+    .fieldset-container {
+      display: flex;
+      gap: 1rem;
+    }
 
-#rcorners2 {
-  border-radius: 10px;
-  border: 1px solid #73AD21;
-  padding: 20px; 
-}
-#rcorners3 {
-  border-radius: 10px;
-  border: 1px solid #73AD21;
-}
-.container:before,
-.container:after {
-  content: "";
-  display: table;
-}
-.container:after {
-  clear: both;
-}
-.container {
-  background: #ffffff;
-  width: 100%;
-  *zoom: 1;
-}
-.container,
-section,
-aside {
-  border-radius: 10px;
-}
-section,
-aside {
-  
-  margin: 0px;
-  padding: 10px 0;
-  text-align: center;
-}
-section {
-  float: left;
-  width: 66%;
-}
-aside {
-  float: right;
-  width: 33%;
-}
+    fieldset {
+      border: 1;
+      padding: 0;
+      margin: 0;
+    }
 
-.container {
-    padding:12px;
-}
+    legend {
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-.columna {
-  width:33%;
-  float:left;
-}
-  .vertical .redBar, .vertical .greenBar, .vertical .blueBar {
-    width:16px;
-  }
-  .vertical.top td {
-    vertical-align:top;
-  }
-  .vertical.bottom td {
-    vertical-align:bottom;
-  }
- 
-  .redBar, .greenBar, .blueBar {
-    box-shadow: 2px 2px 5px #999;
-    border-radius: 3px;
-  }
-  .redBar {
-    background-color:gray;
-  }
-  .greenBar {
-    background-color:gray;
-  }
-  .blueBar {
-    background-color:gray;
-  }
+    fieldset p {
+      font-size: 12px;
+      margin: 0;
+    }
 
-@media (max-width: 100%) {
-  
-  .columna {
-    width:auto;
-    float:none;
-  } 
-}
+    fieldset p span {
+      font-size: 11px;
+      font-weight: normal;
+    }
+    .fieldset-container {
+      display: flex;
+      gap: 1rem;
+    }
 
-</style>
+    .modern-fieldset {
+      border: 1px solid #3498db;
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 0;
+    }
 
-   </head>
+    .modern-fieldset legend {
+      font-size: 14px;
+      font-weight: bold;
+      color: #3498db;
+    }
+
+    .modern-fieldset p {
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .modern-fieldset p span {
+      font-size: 11px;
+      font-weight: normal;
+    }    
+    .modern-fieldset.footer-fieldset {
+      flex-basis: 100%; /* Ocupa todo el ancho */
+      margin-top: 1rem;
+    }
+    .section-divider {
+      border-bottom: 1px dashed #000;
+      margin-bottom: 1rem;
+    }    
+  </style>
+</head>
 <body>
-   <header>
-   <div class="columna" align="center">
-   <img src="{{ asset('img/acuapaltres.png') }}" alt="Acuapaltres" width="100" height="auto">
-   </div>
-   <div class="columna" align="center">
-    <fieldset>
-      <table cellpadding="0" cellspacing="0" align="center" >
-        <tr>
-            <td>
-            <div class="box"><div id="invoice"  align="center" >
-              <font color="#0087C3" align="right">
-                  SUSCRIPTOR:{{ $detalles->matricula }}<br>  
-                  REF: {{ $detalles->id }}
-                <p>Fecha de Emisión: {{ $detalles->fecha_emision }}</p>
-              </font>   
-            </div>
-            </td>
-        </tr>
-      </table>
-   </fieldset>
-   </div>
-   <div class="columna">
-   <fieldset><h3>Detalles de Facturación</h3>
-   # Cuota Familiar: {{ $detalles->numero }}<br>
-   <p>Pago Oportuno: {{ $detalles->fecha_vencimiento }}</p>
-   <p># Cuota: {{ $detalles->id_detalle_factura }}</p>
-     </fieldset>
-   <br>
-      <div  align="center" style="border: solid #A52A2A 3px; border-radius: 50%;"><div><b>TOTAL A PAGAR</b><br>${{ number_format($detalles->monto_total, 2, ',', '.') }} </div>
-
+  <header>
+    <!-- Encabezado de la página -->
+    <div class="header-container">
+      <div class="logo">
+        <!-- Coloca aquí tu logotipo -->
+        <img src="{{ asset('img/acuapaltres.png') }}" alt="Acuapaltres" width="100" height="auto">
       </div>
-  </div>
-</header>
-<br>
-<main>
-  <br>
-  <br>
-   <div id="rcorners3" align="center">
-    <table width="100%">
-      <tr>
-        <td><b>NOMBRE:</b></td>
-        <td> </td>
-        <td></td>
-        <td><b>CICLO:</b></td>
-        <td></td>
-        <td></td>
-        <td><b>TARIFA:</b></td>
-        <td>$14.000 50M3</td>
-      </tr>
-      <tr>
-        <td><b>DIRECCIÓN:</b></td>
-        <td></td>
-        <td> </td>
-        <td><b>MEDIDOR:</b></td>
-        <td></td>
-        <td> </td>
-        <td><b>CLASE SERVICIO:</b></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><b>SECTOR:</b></td>
-        <td></td>
-        <td> </td>
-        <td><b>ESTRATO:</b></td>
-        <td></td>
-        <td> </td>
-        <td><b></b></td>
-        <td></td>
-        <td></td>
-      </tr>
-      
-    </table>
-   </div>
-<br>
-   <div id="rcorners3" align="center">
-    <table width="100%">
-      <thead>
-        <tr bgcolor="#c3c3c3">
-        <th>Detalles del Consumo</th>
-        <th>Consumo M3</th>
-        <th>Cost. Ref.</th>
-        <th>Tarifa Aplicada</th>
-        <th>Costor real mes</th>
-        <th>Subsidio</th>
-        <th>Neto a Pagar</th>
-      </tr>
-      </thead>
-      <tbody>
-    <tr>
-        <td><b>Cargo Fijo:</b></td>
-        <td>M3</td>
-        <td align="right">$0</td>
-        <td align="right">$0</td>
-        <td align="right">$0</td>
-        <td align="right">$0</td>
-        <td align="right">$0</td>
-      </tr>
-      <tr>
-        <td><b>Consumo Basico:</b></td>
-        <td>50m3</td>
-        <td align="right">$14000</td>
-        <td align="right">$14000</td>
-        <td align="right">$14000</td>
-        <td align="right">$0</td>
-        <td align="right">$14000</td>
-      </tr>
-      <tr>
-        <td><b>Consumo Total:</b></td>
-        <td> m3</td>
-        <td align="right">$14000</td>
-        <td align="right">$14000</td>
-        <td align="right">$14000</td>
-        <td align="right">$0</td>
-        <td align="right">$14000</td>
-      </tr>
-      <tr>
-        <td><b>Multas|Otros:</b></td>
-        <td>50m3</td>
-        <td align="right">$14000</td>
-        <td align="right">$14000</td>
-        <td align="right">$14000</td>
-        <td align="right">$0</td>
-        <td align="right">$14000</td>
-      </tr>
-      </tbody>
-    <tfoot align="center">
-      <tr>
-        <td><b>TOTAL:</b></td>
-        <td></td>
-        <td> </td>
-        <td></td>
-        <td></td>
-        <td> </td>
-        <td align="right"><b id="rcorners1">$</b></td>
-      </tr>
-    </tfoot>
-    </table>
-  <table width="100%" align="center">
-    <tr align="center" bgcolor="#c3c3c3">
-      <td><b>Periodo Facturado</b></td>
-      <td><b>Lectura</b></td>
-      <td><b>Fecha Fact</b></td>
-     <td><b>Consumo</b></td>
-      <td><b>Creditos|Otros</b></td>
-    </tr>
+      <div class="component">
+        <!-- Componente 1 con los datos básicos del suscriptor o usuario -->
+        <fieldset class="modern-fieldset">
+        <legend>Datos del Suscriptor</legend>
+        <p><b>SUSCRIPTOR:</b> {{ $detalles->matricula }}</p>
+        <p><b>REF:</b> {{ $detalles->id }}</p>
+        <p><b>Fecha de Emisión:</b> {{ $detalles->fecha_emision }}</p>    
+        <p><b>Ciclo:</b></p>      
+        </fieldset>
+      </div>
+      <div class="component">
+        <!-- Componente 2 con los detalles de facturación -->
+        <fieldset class="modern-fieldset">
+        <legend>Detalles de Facturación</legend>
+        <p><b>Cuota Familiar #:</b> {{ $detalles->numero }}</p>
+        <p><b>Pago Oportuno:</b> {{ $detalles->fecha_vencimiento }}</p>
+        <p><b>Cuota #:</b> {{ $detalles->id_detalle_factura }}</p><div align="center"><b> Total Cuota</b></div>
+         <div align="center" style="border: solid #A52A2A 3px; border-radius: 50%;"><b> ${{ number_format($detalles->monto_total, 2, ',', '.') }}</b></div>
+         <div><b>Cretidos y otros:</b> ${{ number_format($detalles->monto_total, 2, ',', '.') }}</b></div><div align="center">¡Sí proteges el Agua Proteges la Vida!</div>
+        </fieldset>
+      </div>
+    </div>
+  </header>
 
-    <tr align="center">
-      <td></td>
-      <td></td>
-     <td></td>
-      <td></td>
-     <td align="right"><b  id="rcorners1">$</b></td>
-    </tr>
-    </table>
-   </div>
+  <main>
+    <!-- Contenido principal -->
+<section>
 
-<br>  
- <div align="center" style="border: solid #A52A2A 3px; border-radius: 50%;">TOTAL (CUOTA + OTROS)<br><b> ${{ number_format($detalles->monto_total, 2, ',', '.') }}</b><br><b>Mensaje: </b>¡Sí proteges el Agua Proteges la Vida! -<b> 
+  <div class="fieldset-container">
+    <!-- Tus otros fieldsets aquí -->
+    <fieldset class="modern-fieldset footer-fieldset">
+      <legend>Resumen cuota Familiar</legend>
+      <div class="factura content">
+        <table>
+          <tr>
+            <th colspan="2" align="center">Descripción</th>
+          </tr>
+          <tr>
+            <td>Fecha Emisión</td>
+            <td>{{ $detalles->fecha_emision }}</td>
+          </tr>
+          <tr>
+            <td>Lectura Actual</td>
+            <td>{{ $detalles->lectura_actual }}</td>
+          </tr>
+          <tr>
+            <td>Lectura Anterior</td>
+            <td>{{ $detalles->lectura_anterior }}</td>
+          </tr>
+          <tr>
+            <td>Total Otros Créditos</td>
+            <td>{{ $detalles->total_creditos }}</td>
+          </tr>
+          <tr>
+            <td>Total Cuota</td>
+            <td align="right">{{ $detalles->total_pagar }}:  ${{ number_format($detalles->monto_total, 2, ',', '.') }}</td> 
       </b>
 
- </div>
- 
-<div class="container">
-  <section>
-  <article id="rcorners3">
-    <h3>CREDITOS OTORGADOS</h3>
-   
-   <table align="center" width="100%">
-    <thead>
-    <tr bgcolor="#c3c3c3">
-      <th align="left">Descripción</th>
-      <th>Valor Credito</th>
-      <th>Cuota</th>
-      <th>Pendiente</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th align="left">*</th>
-      <th></th>
-      <th></th>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-      <th align="right">TOTAL</th>
-      <th bgcolor="#c3c3c3" align="right">$</th>
-      <th></th>
-    </tr>
-    </tfoot>
-   </table>    
-   <h3>ULTIMO PAGO REALIZADO</h3>
-   <table>
-    <thead>
-    <tr>
-      <th align="left">Fecha</th>
-      <th></th>
-      <th></th>
-    <th align="left">Estado</th>
-      <td>
-
-    </td>
-     
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th align="left">Valor</th>
-      <th></th>
-      <th></th>
-    </tr>
-    </tbody>
-    </table>
-
-  </article>
-   <br>  
-  <article>
-<div id="rcorners3" align="center"><b>HISTORA DE CONSUMO</b>
-<table border=0 cellspacing=5 cellpadding=0 class="vertical bottom" align="center">
-  <tr>
-    <td>
-      <div class="redBar" style="height:$px"></div>
-    </td>
-    <td>
-      <div class="redBar" style="height:$px"></div>
-    </td>
-    <td>$
-      <div class="redBar" style="height:$px"></div>
-    </td>
-  <td width="20px">&nbsp;</td>
-  <td>*Pago oportuno hasta:<br><br>*Recuerde siempre conservar los recibos y soportes de pago<br>
-  </td>
-  </tr>
-</table>
-</div>
-  </article>
-  </section>
-  <aside>
-
-  <article id="rcorners3">
-    <div>
-  <table align="center">
-    <thead>
-    <tr>
-      <td colspan="2"><div style="background: #7DD3EC;" id="rcorners3" align="center"><b>RESUMEN DE FACTURACIÓN</b></div>
-      </td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th align="left">Cargo Basico</th>
-      <td align="right">$14000</td>
-    </tr>
-    <tr>
-      <th align="left">Consumo total M3 </th>
-      <td align="right"> M3</td>
-    </tr>
-    <tr>
-      <th align="left">Valor Recargo x m3</th>
-      <td align="right">
-      
-      </td></tr>
-    <tr>
-      <th align="left"></th>
-      <td align="right"></td></tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <th align="left"><div style="background: #7DD3EC;" ><h3>PAGO TOTAL</h3> </div>
-        </th>
-        <td align="right"><h3><b>$</b></h3></td>
-      </tr>
-    </tfoot>
-  </table>
-
-  </article>
-  <article><div style="background: #7DD3EC;" >
-    <h3>CREDITOS | OTROS</h3></div>
-  <table align="center">
-    <tr><th align="left">Cartera</th><td align="right">$</td></tr>
-    <tr><th align="left">Creditos</th><td align="right">$</td></tr>
-    <tr><th align="left">Otros</th><td align="right">$</td></tr>
-    <tfoot>
-      <tr><th align="left"><div style="background: #7DD3EC;" >GRAL TOTAL</div>  </th><td align="right"></h3></td></tr>
-    </tfoot>
-  </table>
-  </article>
-  </aside>
-<div align="center" style="border: solid #A52A2A 3px; border-radius: 50%;">
-      
-</div>
-
-</div>
-  </div>
- </main> 
-<hr style="border: 0; height: 0px; border-top: 0px dashed black; border-bottom: 1px dashed black;" />
-   <footer >
-    <br>
-    <div class="columna" align="left">
-   <img src="{{ asset('img/acuapaltres.png') }}" alt="Acuapaltres" width="50" height="auto"> 
-   </div>
-   <div class="columna" >
-    <fieldset>
-    <b>Nombre: </b> <br>
-    <b>Suscriptor: </b><br>
-    <b>Sector: </b>
+ </div></td>
+          </tr>
+        </table>
+      </div>
     </fieldset>
-   </div>
-   <div class="columna" align="center" >
-    <FIELDSET>
-      <b>Fecha Facturación: </b><br>
-      $
-    </FIELDSET><br><b>TOTAL CUOTA:</b> <br><div style="border: solid #A52A2A 3px; border-radius: 50%;">${{ number_format($detalles->monto_total, 2, ',', '.') }}</div>
- </div>
-   </footer>
+  </div>
+</section>
+<section>
+  <h4>Sección 2</h4>
+  <div class="fieldset-container">
+    <fieldset class="modern-fieldset">
+      <legend>Información de Tarifa</legend>
+      <p>Tarifa: <span>{{ $detalles->tarifa }}</span></p>
+      <p>Precio por kWh: <span>{{ $detalles->precio_kwh }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Lectura Actual</legend>
+      <p>Lectura: <span>{{ $detalles->lectura_actual }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Lectura Anterior</legend>
+      <p>Lectura: <span>{{ $detalles->lectura_anterior }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Consumo</legend>
+      <p>Total kWh Consumidos: <span>{{ $detalles->total_consumo }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Resumen de Total a Pagar</legend>
+      <p>Total a Pagar: <span>{{ $detalles->total_pagar }}</span></p>
+    </fieldset>
+  </div>
+</section><section>
+  <h4>Sección 2</h4>
+  <div class="fieldset-container">
+    <fieldset class="modern-fieldset">
+      <legend>Información de Tarifa</legend>
+      <p>Tarifa: <span>{{ $detalles->tarifa }}</span></p>
+      <p>Precio por kWh: <span>{{ $detalles->precio_kwh }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Lectura Actual</legend>
+      <p>Lectura: <span>{{ $detalles->lectura_actual }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Lectura Anterior</legend>
+      <p>Lectura: <span>{{ $detalles->lectura_anterior }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Consumo</legend>
+      <p>Total kWh Consumidos: <span>{{ $detalles->total_consumo }}</span></p>
+    </fieldset>
+    <fieldset class="modern-fieldset">
+      <legend>Resumen de Total a Pagar</legend>
+      <p>Total a Pagar: <span>{{ $detalles->total_pagar }}</span></p>
+    </fieldset>
+  </div>
+</section>
 
-</html> 
+</main>
+
+  <footer>
+    <!-- Pie de página -->
+
+<section>
+<div class="section-divider"></div>
+  <div class="fieldset-container">
+    <!-- Tus otros fieldsets aquí -->
+    <fieldset class="modern-fieldset footer-fieldset">
+      <legend>Pie de página</legend>
+      <table>
+      <tr>
+        <td rowspan="2">
+          <img src="{{ asset('img/acuapaltres.png') }}" alt="Acuapaltres" width="50" height="auto">
+        </td>
+        <td>
+          <strong>Nombre del Suscriptor:</strong> Juan Pérez
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Fecha de Factura:</strong> 10 de junio de 2023
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <strong>Total del Consumo:</strong> $150.00<br>
+          <strong>Total a Pagar:</strong> $100.00
+        </td>
+      </tr>
+    </table>
+    </fieldset>
+  </div>
+</section>
+    
+  </footer>
+
+  <script src="script.js"></script> <!-- Enlace a un archivo JavaScript externo -->
+  <script>
+    // Código JavaScript
+  </script>
+</body>
+</html>
