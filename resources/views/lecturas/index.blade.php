@@ -30,10 +30,17 @@
         <!-- Tabla de Lecturas -->
         <div>
             <h2 class="text-xl font-bold mb-4">Últimas Lecturas por Matrícula</h2>
-        <div class="overflow-x-auto relative">
-            <div class="mb-4 text-right">
+
+        <div class="mb-4 text-right">
             <a href="{{ route('lecturas.create') }}" class="bg-green-500 text-white px-4 py-2 rounded">Nueva Lectura</a>
+            <form action="{{ route('lecturas.facturar.todas') }}" method="POST" class="inline-block">
+                @csrf
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Facturar Todas</button>
+            </form>
+    
         </div>
+
+        
                 <table class="min-w-full bg-white border border-gray-300 rounded">
                     <thead class="bg-gray-100 sticky top-0">
                         <tr>
@@ -89,10 +96,13 @@
                             </form>
                         </td>
                     </tr>
-
                         @endforeach
                     </tbody>
                 </table>
+
+                <div class="mt-4">
+                        {{ $lecturas->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -105,4 +115,4 @@
             document.getElementById('consumo').value = consumo.toFixed(2);
         }
     </script>
-    @endsection
+    @endsection 

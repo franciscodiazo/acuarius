@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Lectura;
 use App\Models\Cliente;
 use App\Models\Tarifa;
+use App\Models\Factura;
+use App\Models\DetalleFactura;
+use Carbon\Carbon;
 
 class LecturaController extends Controller
 {
@@ -59,7 +62,7 @@ class LecturaController extends Controller
         }
 
         // Filtrar lecturas no facturadas y paginarlas
-        $lecturas = Lectura::where('facturada', 0)->paginate(10); // Solo las no facturadas
+        $lecturas = Lectura::where('facturada', 0)->paginate(50); // Solo las no facturadas
     
         // Obtener todas las tarifas y organizarlas por ciclo_facturado
         $tarifas = Tarifa::all()->keyBy('ciclo_facturado'); // Indexar tarifas por ciclo_facturado
@@ -129,4 +132,64 @@ class LecturaController extends Controller
 
         return redirect()->route('lecturas.index')->with('success', 'Lectura actualizada con éxito.');
     }
+
+    public function facturarTodasLecturas()
+    {
+        $lecturasPendientes = Lectura::where('facturada', false)->get();
+
+        if ($lecturasPendientes->isEmpty()) {
+            return redirect()->route('lecturas.index')->with('warning', 'No hay lecturas pendientes para facturar.');
+        }
+
+        // Obtener la tarifa actual
+        $tarifa = Tarifa::first();
+
+        if (!$tarifa) {
+            return redirect()->route('lecturas.index')->with('warning', 'No hay tarifas configuradas. Por favor, crea una antes de continuar.');
+        }
+
+        foreach ($lecturasPendientes as $lectura) {
+            $cliente = Cliente::where('matricula', $lectura->matricula)->firstOrFail();
+
+            $consumo = $lectura->lectura_actual - $lectura->lectura_anterior;
+            $metrosAdicionales = max(0, $consumo - 50); // Asume que 50 m³ es el consumo base
+            $valorAPagar = $tarifa->tarifa_basica + ($metrosAdicionales * $tarifa->precio_metro_adicional);
+
+            // Generar un número de factura único para el cliente
+            $contadorFacturas = Factura::where('cliente_id', $cliente->id)->count() + 1;
+            $numeroFacturaUnico = date('Y') . $cliente->id . $contadorFacturas;
+
+            // Crear la factura
+            $factura = new Factura();
+            $factura->cliente_id = $cliente->id;
+            $factura->numero_factura = $numeroFacturaUnico;
+            $factura->fecha_emision = $lectura->fecha;
+            $factura->fecha_vencimiento = Carbon::parse($lectura->fecha)->addDays(20);
+            $factura->subtotal = $valorAPagar;
+            $factura->impuestos = 0; // Si hay impuestos, ajusta aquí
+            $factura->total = $valorAPagar;
+            $factura->estado = 'pendiente';
+            $factura->save();
+
+            // Actualizar el estado de la lectura
+            $lectura->facturada = true;
+            $lectura->save();
+
+            // Crear el detalle de la factura
+            $detalle = new DetalleFactura();
+            $detalle->factura_id = $factura->id;
+            $detalle->lectura_id = $lectura->id;
+            $detalle->descripcion = "Fecha: {$lectura->fecha}, Consumo: {$consumo} m³";
+            $detalle->cantidad = $consumo;
+            $detalle->precio_unitario = $tarifa->tarifa_basica;
+            $detalle->impuesto = 0; // Asegurarse de establecer el valor predeterminado
+            $detalle->subtotal = $valorAPagar;
+            $detalle->total = $valorAPagar;
+            $detalle->save();
+        }
+
+        return redirect()->route('lecturas.index')->with('success', 'Todas las lecturas han sido facturadas con éxito.');
+    }
+    
+    
 }

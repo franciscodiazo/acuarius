@@ -6,6 +6,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\TarifaController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InformeController;
 
 
 
@@ -25,10 +26,13 @@ Route::post('/lecturas', [LecturaController::class, 'store'])->name('lecturas.st
 Route::get('/lecturas', [LecturaController::class, 'index'])->name('lecturas.index');
 Route::get('/lecturas/ultima/{matricula}', [LecturaController::class, 'obtenerUltimaLectura'])->name('lecturas.ultima');
 
+
 Route::get('/lecturas/create', [LecturaController::class, 'create'])->name('lecturas.create');
 Route::get('/lecturas/edit/{id}', [LecturaController::class, 'edit'])->name('lecturas.edit');
 Route::get('/lecturas/ultima/{matricula}', [LecturaController::class, 'obtenerUltimaLectura'])->name('lecturas.ultima');
 Route::resource('lecturas', LecturaController::class)->except(['create', 'edit']);
+Route::post('/lecturas/facturar-todas', [LecturaController::class, 'facturarTodasLecturas'])->name('lecturas.facturar.todas');
+
 
 // Rutas para clientes
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
@@ -56,4 +60,10 @@ Route::post('/facturas/create-from-lectura/{lectura}', [FacturaController::class
 Route::post('/facturas/pagar', [FacturaController::class, 'pagar'])->name('facturas.pagar');
 Route::get('/facturas/historico/{cliente_id}', [FacturaController::class, 'historico'])->name('facturas.historico');
 Route::get('/clientes/{id}/facturas', [FacturaController::class, 'showFacturasCliente'])->name('clientes.facturas');
+Route::post('/facturas/print', [FacturaController::class, 'printSelected'])->name('facturas.print');
+Route::post('/facturas/print-range', [FacturaController::class, 'printRange'])->name('facturas.printRange');
+
 Route::resource('facturas', FacturaController::class);
+
+
+Route::get('/informes', [InformeController::class, 'index'])->name('informes.index');

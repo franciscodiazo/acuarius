@@ -2,101 +2,99 @@
 
 @section('content')
 <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Facturas</h1>
-    <table class="min-w-full bg-white border border-gray-300 rounded">
-        <thead class="bg-gray-100">
-            <tr>
-                <th class="py-2 px-4 border-b">Número de Factura</th>
-                <th class="py-2 px-4 border-b">Cliente</th>
-                <th class="py-2 px-4 border-b">Fecha de Emisión</th>
-                <th class="py-2 px-4 border-b">Total</th>
-                <th class="py-2 px-4 border-b">Estado</th>
-                <th class="py-2 px-4 border-b"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($facturas as $factura)
-            <tr>
-                <td class="py-2 px-4 border-b">{{ $factura->numero_factura }}</td>
-                <td class="py-2 px-4 border-b">{{ $factura->cliente->nombres }} {{ $factura->cliente->apellidos }}</td>
-                <td class="py-2 px-4 border-b">{{ $factura->fecha_emision }}</td>
-                <td class="py-2 px-4 border-b">${{ number_format($factura->total, 2) }}</td>
-                <td class="py-2 px-4 border-b">{{ ucfirst($factura->estado) }}</td>
-                <td class="py-2 px-4 border-b text-right">
-                    @if($factura->estado === 'pendiente')
-                    <button onclick="openPaymentModal({{ $factura->id }})" class="bg-green-500 text-white px-2 py-1 rounded">Pagar</button>
-                    @endif
-                    <a href="{{ route('facturas.show', $factura->id) }}" class="bg-blue-500 text-white px-2 py-1 rounded">Ver</a>
-                    <a href="{{ route('facturas.historico', $factura->cliente_id) }}" class="bg-gray-500 text-white px-2 py-1 rounded">Histórico</a>
-                </td>
+    <h1 class="text-2xl font-bold mb-4">Facturas Pendientes de Pago</h1>
 
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <!-- Estadísticas -->
+    <div class="mb-4 bg-blue-100 p-4 rounded shadow">
+        <p class="text-blue-800 font-bold">Total de Facturas Pendientes: {{ $totalPendientes }}</p>
+    </div>
+
+    <form method="POST" action="{{ route('facturas.printRange') }}" target="_blank" class="mb-4">
+    @csrf
+    <div class="flex items-center gap-4">
+        <input 
+            type="text" 
+            name="start_range" 
+            placeholder="Número de Factura Inicial" 
+            class="border border-gray-300 rounded px-3 py-2"
+            required
+        >
+        <input 
+            type="text" 
+            name="end_range" 
+            placeholder="Número de Factura Final" 
+            class="border border-gray-300 rounded px-3 py-2"
+            required
+        >
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Imprimir Rango</button>
+    </div>
+</form>
+
+
+    <!-- Formulario de Búsqueda General -->
+    <form method="GET" action="{{ route('facturas.index') }}" class="mb-4">
+        <div class="flex items-center gap-4">
+            <input 
+                type="text" 
+                name="search" 
+                placeholder="Buscar por nombre, apellidos o matrícula" 
+                value="{{ $search }}" 
+                class="w-full border border-gray-300 rounded px-3 py-2"
+            >
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Buscar</button>
+            <a href="{{ route('facturas.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">Limpiar</a>
+        </div>
+    </form>
+
+    <!-- Formulario de selección de facturas -->
+    <form method="POST" action="{{ route('facturas.print') }}" target="_blank">
+        @csrf
+        <!-- Tabla de Facturas -->
+        <table class="min-w-full bg-white border border-gray-300 rounded">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="py-2 px-4 border-b"><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
+                    <th class="py-2 px-4 border-b">Número de Factura</th>
+                    <th class="py-2 px-4 border-b">Cliente</th>
+                    <th class="py-2 px-4 border-b">Fecha de Emisión</th>
+                    <th class="py-2 px-4 border-b">Total</th>
+                    <th class="py-2 px-4 border-b">Estado</th>
+                    <th class="py-2 px-4 border-b"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($facturas as $factura)
+                <tr>
+                    <td class="py-2 px-4 border-b">
+                        <input type="checkbox" name="factura_ids[]" value="{{ $factura->id }}">
+                    </td>
+                    <td class="py-2 px-4 border-b">{{ $factura->numero_factura }}</td>
+                    <td class="py-2 px-4 border-b">{{ $factura->cliente->nombres }} {{ $factura->cliente->apellidos }}</td>
+                    <td class="py-2 px-4 border-b">{{ $factura->fecha_emision }}</td>
+                    <td class="py-2 px-4 border-b">${{ number_format($factura->total, 2) }}</td>
+                    <td class="py-2 px-4 border-b">{{ ucfirst($factura->estado) }}</td>
+                    <td class="py-2 px-4 border-b text-right">
+                        <button onclick="openPaymentModal({{ $factura->id }})" class="bg-green-500 text-white px-2 py-1 rounded">Pagar</button>
+                        <a href="{{ route('facturas.show', $factura->id) }}" class="bg-blue-500 text-white px-2 py-1 rounded">Ver</a>
+                        <a href="{{ route('facturas.historico', $factura->cliente_id) }}" class="bg-gray-500 text-white px-2 py-1 rounded">Histórico</a>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="py-2 px-4 border-b text-center">No hay facturas pendientes de pago.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        <!-- Botón para imprimir facturas seleccionadas -->
+        <div class="mt-4 flex justify-end">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Imprimir Seleccionadas</button>
+        </div>
+    </form>
+
     <div class="mt-4">
         {{ $facturas->links() }}
     </div>
 </div>
-
-<!-- Modal -->
-<div id="paymentModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
-    <div class="bg-white p-6 rounded shadow-md w-96">
-        <h2 class="text-xl font-bold mb-4">Confirmar Pago</h2>
-        <form id="paymentForm" method="POST" action="{{ route('facturas.pagar') }}">
-            @csrf
-            <input type="hidden" id="factura_id" name="factura_id" value="">
-
-            <!-- Método de Pago -->
-            <div class="mb-4">
-                <label for="payment_method" class="block text-gray-700">Método de Pago</label>
-                <select id="payment_method" name="payment_method" class="w-full border border-gray-300 rounded px-3 py-2">
-                    <option value="">Seleccione un método</option>
-                    <option value="banco">Banco</option>
-                    <option value="efectivo">Efectivo</option>
-                    <option value="transferencia">Transferencia</option>
-                    <option value="otro">Otro</option>
-                </select>
-            </div>
-
-            <!-- Especificar otro método -->
-            <div id="other_method_field" class="mb-4 hidden">
-                <label for="other_method" class="block text-gray-700">Especifique</label>
-                <input type="text" id="other_method" name="other_method" class="w-full border border-gray-300 rounded px-3 py-2">
-            </div>
-
-            <!-- Fecha de Pago -->
-            <div class="mb-4">
-                <label for="payment_date" class="block text-gray-700">Fecha de Pago</label>
-                <input type="date" id="payment_date" name="payment_date" value="{{ date('Y-m-d') }}" class="w-full border border-gray-300 rounded px-3 py-2">
-            </div>
-
-            <div class="flex justify-end">
-                <button type="button" onclick="closePaymentModal()" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Confirmar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script>
-    function openPaymentModal(facturaId) {
-        document.getElementById('factura_id').value = facturaId;
-        document.getElementById('paymentModal').classList.remove('hidden');
-    }
-
-    function closePaymentModal() {
-        document.getElementById('paymentModal').classList.add('hidden');
-    }
-
-    document.getElementById('payment_method').addEventListener('change', function () {
-        const otherField = document.getElementById('other_method_field');
-        if (this.value === 'otro') {
-            otherField.classList.remove('hidden');
-        } else {
-            otherField.classList.add('hidden');
-            document.getElementById('other_method').value = '';
-        }
-    });
-</script>
 @endsection

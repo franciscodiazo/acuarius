@@ -1,0 +1,120 @@
+[33mcommit be2d49c928db223f84888395ffbbc30f2c50becb[m[33m ([m[1;36mHEAD[m[33m)[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Sun Dec 22 15:23:17 2024 -0500
+
+    Nueva version
+
+[33mcommit 31747deffbc1e72ac6be2b4505b4e5eaac0b32a5[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Sun Jun 11 20:09:09 2023 -0500
+
+    factura config carta
+
+[33mcommit 06bf47364aea5cef826a6b571ef93309535b9c8b[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Mon May 22 01:01:49 2023 -0500
+
+    cuotas pendientes
+
+[33mcommit e89ceaebad57e2065bba4b32f6f8c253ca028476[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Tue Apr 25 23:29:49 2023 -0500
+
+    pago facturacion
+
+[33mcommit 685bd46298428fcc75051b28fe1f85a8f583d5bb[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Mon Apr 24 22:31:15 2023 -0500
+
+    algunos cambios en detallefact
+
+[33mcommit b20d4343c702bd2da76659c2615209c57561a113[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Sat Apr 22 19:02:13 2023 -0500
+
+    Pagos y Creditos
+
+[33mcommit 2ae8e2eebed0931e961c47380745c6efcc69f90c[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Sun Apr 16 17:14:45 2023 -0500
+
+    :tada: Cambio en Cuota Familiar!
+
+[33mcommit 1d689d3689d47e8c4a5dc52ab62d0bd2a9b08b66[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Sun Apr 9 23:19:09 2023 -0500
+
+    :tada: Add DetallesLectura!
+
+[33mcommit da05cd6dbba54e7772db5978fb89e90808d9ef53[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Sat Apr 8 13:54:04 2023 -0500
+
+    :tada: Add some changes!
+
+[33mcommit 2c05feea18dc1ce903c13fcc8a357b60be90fd11[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Tue Apr 4 18:14:44 2023 -0500
+
+    matricula
+
+[33mcommit c8fefb29f374e1762b8a86d048f2e25803f46ec0[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Tue Apr 4 09:52:55 2023 -0500
+
+    registro mlw
+
+[33mcommit 4a59cbb14a636fbf6cd41febd8fed4af4e677344[m
+Merge: 0c1f2a8 70cb4e0
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Thu Mar 30 21:35:20 2023 -0500
+
+    Merge branch 'master' of https://github.com/franciscodiazo/acuarius
+
+[33mcommit 0c1f2a84a548a9ea102286fe6cd0057092c4f1fe[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Thu Mar 30 21:31:23 2023 -0500
+
+    registro mlw
+
+[33mcommit 70cb4e07044dac579312b0e8b26deaea534fe8e5[m
+Author: franciscodiazo <68307007+franciscodiazo@users.noreply.github.com>
+Date:   Thu Mar 30 14:47:31 2023 -0500
+
+    Update README.md
+
+[33mcommit 5274356f95d0e55dc5a07a82c7818c0f0525f31e[m
+Author: franciscodiazo <68307007+franciscodiazo@users.noreply.github.com>
+Date:   Thu Mar 30 14:40:14 2023 -0500
+
+    Update README.md
+
+[33mcommit 45eb073c2639af85c85179da2a0d339180aeaae5[m
+Author: franciscodiazo <68307007+franciscodiazo@users.noreply.github.com>
+Date:   Thu Mar 30 14:38:24 2023 -0500
+
+    Update README.md
+
+[33mcommit 1f64ea68c75db0476acec2981a13810f4f1992c7[m
+Author: franciscodiazo <68307007+franciscodiazo@users.noreply.github.com>
+Date:   Thu Mar 30 14:37:41 2023 -0500
+
+    Update README.md
+
+[33mcommit 0fc3cf9613a988026028ba487044dcc5ff2fa67b[m
+Author: franciscodiazo <68307007+franciscodiazo@users.noreply.github.com>
+Date:   Thu Mar 30 14:36:07 2023 -0500
+
+    Update README.md
+
+[33mcommit 784d917d500d1af467a7338e007295f0edb128ea[m
+Author: franciscodiazo <68307007+franciscodiazo@users.noreply.github.com>
+Date:   Thu Mar 30 14:33:58 2023 -0500
+
+    Update README.md
+
+[33mcommit 15f55817fbbd506b518a2dec4ff93cf5dd077e71[m
+Author: franciscodiazo <franciscojdiazo@gmail.com>
+Date:   Thu Mar 30 14:25:51 2023 -0500
+
+    registro suscriptores
